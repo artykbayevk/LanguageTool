@@ -1,6 +1,10 @@
+import util.Config;
+
 public class LanguageTool {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Config config = new Config();
+        System.out.println(config.abs_path);
+
     }
 }

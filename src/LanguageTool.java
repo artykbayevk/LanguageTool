@@ -1,10 +1,22 @@
 import util.Config;
+import java.io.File;
+import java.io.IOException;
+
 
 public class LanguageTool {
 
     public static void main(String[] args) {
         Config config = new Config();
-        System.out.println(config.abs_path);
+        File baseDirectory  = new File(config.abs_path);
+        File file = new File(baseDirectory, "language.file");
+
+
+        if(file.exists()){
+            System.out.println("File here");
+        }else{
+            System.out.println("Not here ");
+        }
+
 
     }
 }

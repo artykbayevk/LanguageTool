@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import lexing.tokenizer.Token;
 import lexing.tokenizer.Tokenizer;
 
+
 import java.util.List;
 
 public class DFATokenizer implements Tokenizer {

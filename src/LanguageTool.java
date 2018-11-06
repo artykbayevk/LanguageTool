@@ -1,27 +1,19 @@
-import util.Config;
-import java.io.File;
-import java.util.Scanner;
-import java.io.IOException;
-
+import lexing.DFA.DFALexer;
+import lexing.Lexer;
 
 public class LanguageTool {
+    public String path;
+    public String type;
+    public String out_dir;
 
-    public static void main(String[] args) {
-        Config config = new Config();
-        File baseDirectory  = new File(config.abs_path);
-        File file = new File(baseDirectory, "structure_DFA.txt");
+    private Lexer lexer;
 
-        if(file.exists()){
-            System.out.println("File here");
-        }else{
-            System.out.println("Not here ");
-        }
+    public LanguageTool(String path, String type, String output_directory){
+        this.path = path;
+        this.type = type;
+        this.out_dir = output_directory;
 
-        System.out.println("Language Tool Interface:\n");
-        Scanner reader = new Scanner(System.in);
-        System.out.println("1 - Load DFA");
-        System.out.println("2 - Load NFA");
-        System.out.println("3 - Load RegExp\n");
-        int n = reader.nextInt();
+
+        if(type == "DFA") lexer = new DFALexer(path);
     }
 }

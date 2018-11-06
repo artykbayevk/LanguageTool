@@ -1,10 +1,8 @@
 import util.Config;
-
 import java.io.File;
-import java.util.Scanner;
 
 public class Project {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Config config = new Config();
         File baseDirectory  = new File(config.abs_path);
         File file = new File(baseDirectory, "structure_DFA.txt");

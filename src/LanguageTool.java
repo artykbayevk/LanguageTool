@@ -14,6 +14,6 @@ public class LanguageTool {
         this.out_dir = output_directory;
 
 
-        if(type == "DFA") lexer = new DFALexer(path);
+        if(type.equals("DFA")) lexer = new DFALexer(path);
     }
 }

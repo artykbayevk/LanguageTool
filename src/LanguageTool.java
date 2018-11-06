@@ -8,7 +8,7 @@ public class LanguageTool {
     public static void main(String[] args) {
         Config config = new Config();
         File baseDirectory  = new File(config.abs_path);
-        File file = new File(baseDirectory, "language.file");
+        File file = new File(baseDirectory, "structure_DFA.txt");
 
 
         if(file.exists()){
@@ -16,7 +16,5 @@ public class LanguageTool {
         }else{
             System.out.println("Not here ");
         }
-
-
     }
 }

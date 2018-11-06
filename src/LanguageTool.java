@@ -17,7 +17,6 @@ public class LanguageTool {
             System.out.println("Not here ");
         }
 
-
         System.out.println("Language Tool Interface:\n");
         Scanner reader = new Scanner(System.in);
         System.out.println("1 - Load DFA");

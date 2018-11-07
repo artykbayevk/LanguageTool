@@ -1,4 +1,4 @@
-package lexing;
+package util;
 
 public class Token {
 

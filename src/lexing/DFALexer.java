@@ -11,7 +11,6 @@ public class DFALexer extends Lexer {
 
     private List<Token> tokenList;
 
-
     public DFALexer(String path){
         super(path);
         System.out.println(file.toString());
@@ -22,15 +21,22 @@ public class DFALexer extends Lexer {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(file));
             int ch;
+            int row = 0, col = 0;
+            String val = "";
 
             do {
                 ch = reader.read();
-                System.out.println(">>" + (char) ch);
+                if(ch == -1){
+                    System.out.println("File is empty");
+                    break;
+                }else{
+                    System.out.println(">>" + (char) ch);
+                }
+
             }while (ch != -1);
         }catch (IOException e){
             System.out.println("Problem in reading file!");
         }
-
         return null;
     }
 }

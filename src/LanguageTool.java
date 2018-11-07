@@ -1,4 +1,5 @@
 import lexing.*;
+import util.Token;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +23,10 @@ public class LanguageTool {
         }else if(type.equals("REG")){
             lexer = new REGLexer(path);
         }
+
+        try{
+            List<Token> tokens = lexer.getTokens();
+        }catch (IOException e){}
 
         // TODO: 11/7/18 this token will be use for parsing
     }

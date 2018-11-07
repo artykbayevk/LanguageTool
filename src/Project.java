@@ -8,12 +8,10 @@ public class Project {
         File file = new File(baseDirectory, "structure_DFA.txt");
 
         if(file.exists()){
-            System.out.println("File here");
+            System.out.println("File exists");
+            LanguageTool tool = new LanguageTool(file.toString(), "DFA", baseDirectory.toString());
         }else{
             System.out.println("Not here ");
         }
-
-
-        LanguageTool tool = new LanguageTool(file.toString(), "DFA", baseDirectory.toString());
     }
 }

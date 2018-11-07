@@ -1,25 +1,17 @@
 package lexing;
 
-import javafx.util.Pair;
-import lexing.tokenizer.Token;
-
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public abstract class Lexer {
 
-    protected List<Pair<Integer,Character>> LexerCharList;
+    protected List<Token> LexerCharList;
+    protected File file;
 
     public Lexer(String path){
-        // String path of the file
-
-        // create LexerCharList
-        //        this.lexer = read from txt and bla bla bla
+        this.file = new File(path);
     }
 
-    // TODO: 11/6/18 write function which will be return tokens for next Parsing operation
-    //    getTokens
-
-
-    public abstract List<Token> getTokens();
-
+    public abstract List<Token> getTokens() throws IOException;
 }

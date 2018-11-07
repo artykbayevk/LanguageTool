@@ -1,6 +1,4 @@
-import lexing.DFALexer;
-import lexing.Lexer;
-import lexing.Token;
+import lexing.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +17,10 @@ public class LanguageTool {
 
         if(type.equals("DFA")) {
             lexer = new DFALexer(path);
-
+        }else if(type.equals("NFA")){
+            lexer = new NFALexer(path);
+        }else if(type.equals("REG")){
+            lexer = new REGLexer(path);
         }
 
         // TODO: 11/7/18 this token will be use for parsing

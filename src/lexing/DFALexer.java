@@ -17,7 +17,6 @@ public class DFALexer extends Lexer {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             boolean valid = false;
-            boolean isStatement = false;
             int row = 0;
 
 
@@ -32,7 +31,6 @@ public class DFALexer extends Lexer {
                             break;
                         }
                     }
-
                     row++;
                 }
             }
@@ -46,7 +44,6 @@ public class DFALexer extends Lexer {
         }
         return LexerCharList;
     }
-
 
     private boolean LineToTokenChecker(String line, int row){
         String token = "";
@@ -66,9 +63,7 @@ public class DFALexer extends Lexer {
                     token+=c;
                 }
             }
-
         }
-
         return valid;
     }
 }

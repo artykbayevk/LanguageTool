@@ -30,4 +30,5 @@ public class LanguageTool {
 
         // TODO: 11/7/18 this token will be use for parsing
     }
+
 }

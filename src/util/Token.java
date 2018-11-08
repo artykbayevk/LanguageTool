@@ -2,8 +2,8 @@ package util;
 
 public class Token {
 
-    private String val;
-    private int[] pos;
+    public String val;
+    public int[] pos;
 
     public Token(){
     }
@@ -12,5 +12,7 @@ public class Token {
         this.val = lexList;
         this.pos = pos;
     }
+
+
 
 }

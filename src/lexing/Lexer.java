@@ -4,6 +4,7 @@ import util.Token;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Lexer {
@@ -13,6 +14,7 @@ public abstract class Lexer {
 
     public Lexer(String path){
         this.file = new File(path);
+        this.LexerCharList = new ArrayList<Token>();
     }
 
     public abstract List<Token> getTokens() throws IOException;

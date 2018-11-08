@@ -29,8 +29,6 @@ public class DFALexer extends Lexer {
                     LineToToken(splited,break_stm);
                 }
 
-
-
                 if((char)ch == '\n'){
                     String[] splited = line.split("\\s+");
                     //not space

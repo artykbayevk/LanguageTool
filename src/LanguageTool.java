@@ -26,9 +26,19 @@ public class LanguageTool {
 
         try{
             List<Token> tokens = lexer.getTokens();
+            if(tokens != null){
+                PrintTokens(tokens);
+                //parsing operation
+
+            }
         }catch (IOException e){}
 
         // TODO: 11/7/18 this token will be use for parsing
     }
-
+    private void PrintTokens(List<Token> tokens){
+        for (int i = 0; i < tokens.size(); i++) {
+            System.out.println("Token: "+tokens.get(i).val + " on " +
+                    "positions:("+tokens.get(i).pos[0]+':'+tokens.get(i).pos[1]+");");
+        }
+    }
 }

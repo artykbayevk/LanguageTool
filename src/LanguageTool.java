@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class LanguageTool {
-    public String path;
-    public String type;
-    public String out_dir;
+    private String path;
+    private String type;
+    private String out_dir;
     private List<Token> tokens;
     private Lexer lexer;
 
@@ -25,6 +25,7 @@ public class LanguageTool {
         }
 
         try{
+            assert lexer != null;
             tokens = lexer.getTokens();
             if(tokens != null){
                 PrintTokens(tokens);
@@ -39,9 +40,9 @@ public class LanguageTool {
         }
     }
     private void PrintTokens(List<Token> tokens){
-        for (int i = 0; i < tokens.size(); i++) {
-            System.out.println("Token: "+tokens.get(i).val + " on " +
-                    "positions:("+tokens.get(i).pos[0]+':'+tokens.get(i).pos[1]+");");
+        for (Token token : tokens) {
+            System.out.println("Token: " + token.val + " on " +
+                    "positions:(" + token.pos[0] + ':' + token.pos[1] + ");");
         }
     }
 }

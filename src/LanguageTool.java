@@ -8,7 +8,7 @@ public class LanguageTool {
     public String path;
     public String type;
     public String out_dir;
-
+    private List<Token> tokens;
     private Lexer lexer;
 
     public LanguageTool(String path, String type, String output_directory){
@@ -25,15 +25,18 @@ public class LanguageTool {
         }
 
         try{
-            List<Token> tokens = lexer.getTokens();
+            tokens = lexer.getTokens();
             if(tokens != null){
                 PrintTokens(tokens);
-                //parsing operation
 
+                // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
             }
-        }catch (IOException e){}
 
-        // TODO: 11/7/18 this token will be use for parsing
+
+
+        }catch (IOException e){
+            System.out.println("Problems in Lexing");
+        }
     }
     private void PrintTokens(List<Token> tokens){
         for (int i = 0; i < tokens.size(); i++) {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class REGLexer extends Lexer {
 
-
+    // TODO: 11/9/18 Write a lexer for regular expressions
     public REGLexer(String path){
         super(path);
         System.out.println(file.toString());

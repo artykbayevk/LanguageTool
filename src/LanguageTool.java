@@ -32,9 +32,6 @@ public class LanguageTool {
 
                 // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
             }
-
-
-
         }catch (IOException e){
             System.out.println("Problems in Lexing");
         }

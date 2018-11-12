@@ -5,15 +5,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class LanguageTool {
-    private String path;
-    private String type;
     private String out_dir;
     private List<Token> tokens;
     private Lexer lexer;
 
     public LanguageTool(String path, String type, String output_directory){
-        this.path = path;
-        this.type = type;
         this.out_dir = output_directory;
 
         if(type.equals("DFA")) {

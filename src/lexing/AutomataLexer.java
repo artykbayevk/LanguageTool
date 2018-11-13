@@ -12,6 +12,7 @@ public class AutomataLexer extends Lexer {
         super(path);
     }
 
+    @Override
     public List<Token> getTokens() throws IOException {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(file));

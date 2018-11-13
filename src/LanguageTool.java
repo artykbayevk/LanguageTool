@@ -12,13 +12,12 @@ public class LanguageTool {
     public LanguageTool(String path, String type, String output_directory){
         this.out_dir = output_directory;
 
-        if(type.equals("DFA")) {
+        if(type.equals("DFA") || type.equals("NFA")) {
             lexer = new AutomataLexer(path);
-        }else if(type.equals("NFA")){
-            lexer = new AutomataLexer(path);
-        }else if(type.equals("REG")){
+        }else{
             lexer = new RegExpLexer(path);
         }
+
 
         try{
             assert lexer != null;
@@ -26,12 +25,22 @@ public class LanguageTool {
             if(tokens != null){
                 PrintTokens(tokens);
 
+
                 // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
+                if(type.equals("DFA") ){
+                    //PARSE TO AUTOMATA AST - TYPE DFA
+                }else if(type.equals("NFA")){
+                    //PARSE TO AUTOMATA AST - TYPE NFA
+                }else{
+                    //PARSE TO REG EXP
+                }
             }
         }catch (IOException e){
             System.out.println("Problems in Lexing");
         }
     }
+
+
     private void PrintTokens(List<Token> tokens){
         for (Token token : tokens) {
             System.out.println("Token: " + token.val + " on " +

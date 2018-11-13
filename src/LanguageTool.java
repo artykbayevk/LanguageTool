@@ -36,6 +36,9 @@ public class LanguageTool {
                     // TODO: 13.11.2018  PARSE TO AUTOMATA AST - TYPE DFA
                     AutomataParser dfa_parser = new DFAParser(tokens);
                     AutomataAST DFA = dfa_parser.getAutomataAST();
+                    if(DFA != null){
+                        PrintAutomataAST(DFA);
+                    }
                 }else if(type.equals("NFA")){
                     //TODO  PARSE TO AUTOMATA AST - TYPE NFA
                     AutomataParser nfa_parser = new NFAParser(tokens);
@@ -55,5 +58,14 @@ public class LanguageTool {
             System.out.println("Token: " + token.val + " on " +
                     "positions:(" + token.pos[0] + ':' + token.pos[1] + ");");
         }
+    }
+
+    private void PrintAutomataAST(AutomataAST ast){
+        System.out.println("Start state "+ ast.start);
+        System.out.println("Final states "+ ast.final_states.toString());
+
+        System.out.println("Transitions " + ast.transitions.toString());
+        System.out.println("Alphabet " + ast.alphabet.toString());
+        System.out.println("States " + ast.states.toString());
     }
 }

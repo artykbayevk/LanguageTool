@@ -28,13 +28,14 @@ public class LanguageTool {
             assert lexer != null;
             tokens = lexer.getTokens();
             if(tokens != null){
-                PrintTokens(tokens);
+//                PrintTokens(tokens);
 
 
                 // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
                 if(type.equals("DFA") ){
                     // TODO: 13.11.2018  PARSE TO AUTOMATA AST - TYPE DFA
                     AutomataParser dfa_parser = new DFAParser(tokens);
+                    AutomataAST DFA = dfa_parser.getAutomataAST();
                 }else if(type.equals("NFA")){
                     //TODO  PARSE TO AUTOMATA AST - TYPE NFA
                     AutomataParser nfa_parser = new NFAParser(tokens);

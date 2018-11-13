@@ -12,6 +12,8 @@ public class DFAParser extends AutomataParser {
 
     @Override
     public AutomataAST getAutomataAST(){
+        for (Token a:tokens) {
+        }
         return null;
     }
 }

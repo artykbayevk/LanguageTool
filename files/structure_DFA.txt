@@ -6,7 +6,7 @@ q2  ,   a   >  q1 ;
 q2  ,     b   >   q0;
 
 -
-begin  =   q0;
+begin  =   q1;
 final  =   q2,q1;
 
 

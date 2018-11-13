@@ -2,7 +2,7 @@ import util.Config;
 import java.io.File;
 
 public class Project {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         Config config = new Config();
         File baseDirectory  = new File(config.abs_path);
         File file = new File(baseDirectory, "structure_NFA.txt");

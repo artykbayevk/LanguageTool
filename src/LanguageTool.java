@@ -1,8 +1,6 @@
 import AST.AutomataAST;
 import lexing.*;
 import parsing.AutomataParser;
-import parsing.DFAParser;
-import parsing.NFAParser;
 import parsing.RegExpParser;
 import util.Token;
 
@@ -25,23 +23,16 @@ public class LanguageTool {
 
 
         try{
-            assert lexer != null;
             tokens = lexer.getTokens();
-            if(tokens != null){
-//                PrintTokens(tokens);
-
-
-                // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
-                if(type.equals("DFA") ){
-                    // TODO: 13.11.2018  PARSE TO AUTOMATA AST - TYPE DFA
-                    AutomataParser dfa_parser = new DFAParser(tokens);
-                    AutomataAST DFA = dfa_parser.getAutomataAST();
-                    if(DFA != null){
-                        PrintAutomataAST(DFA);
+            System.out.println(tokens.size());
+            if(tokens.size() != 0){
+                PrintTokens(tokens);
+                if(type.equals("DFA") || type.equals("NFA")){
+                    AutomataParser automataParser = new AutomataParser(tokens);
+                    AutomataAST AST = automataParser.getAutomataAST();
+                    if(AST != null){
+                        PrintAutomataAST(AST);
                     }
-                }else if(type.equals("NFA")){
-                    //TODO  PARSE TO AUTOMATA AST - TYPE NFA
-                    AutomataParser nfa_parser = new NFAParser(tokens);
                 }else{
                     // TODO PARSE TO REG EXP
                     RegExpParser reg_parser = new RegExpParser(tokens);
@@ -51,7 +42,6 @@ public class LanguageTool {
             System.out.println("Problems in Lexing");
         }
     }
-
 
     private void PrintTokens(List<Token> tokens){
         for (Token token : tokens) {

@@ -33,13 +33,13 @@ public class LanguageTool {
 
                 // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
                 if(type.equals("DFA") ){
-                    //PARSE TO AUTOMATA AST - TYPE DFA
+                    // TODO: 13.11.2018  PARSE TO AUTOMATA AST - TYPE DFA
                     AutomataParser dfa_parser = new DFAParser(tokens);
                 }else if(type.equals("NFA")){
-                    //PARSE TO AUTOMATA AST - TYPE NFA
+                    //TODO  PARSE TO AUTOMATA AST - TYPE NFA
                     AutomataParser nfa_parser = new NFAParser(tokens);
                 }else{
-                    //PARSE TO REG EXP
+                    // TODO PARSE TO REG EXP
                     RegExpParser reg_parser = new RegExpParser(tokens);
                 }
             }

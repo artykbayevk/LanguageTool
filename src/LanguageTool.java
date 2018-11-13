@@ -13,11 +13,11 @@ public class LanguageTool {
         this.out_dir = output_directory;
 
         if(type.equals("DFA")) {
-            lexer = new DFALexer(path);
+            lexer = new AutomataLexer(path);
         }else if(type.equals("NFA")){
-            lexer = new NFALexer(path);
+            lexer = new AutomataLexer(path);
         }else if(type.equals("REG")){
-            lexer = new REGLexer(path);
+            lexer = new RegExpLexer(path);
         }
 
         try{

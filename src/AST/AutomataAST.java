@@ -18,6 +18,4 @@ public class AutomataAST {
         this.final_states = final_states;
         this.start = start;
     }
-
-    
 }

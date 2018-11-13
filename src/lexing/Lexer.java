@@ -14,8 +14,7 @@ public abstract class Lexer {
 
     public Lexer(String path){
         this.file = new File(path);
-        this.LexerCharList = new ArrayList<Token>();
+        this.LexerCharList = new ArrayList<>();
     }
-
     public abstract List<Token> getTokens() throws IOException;
 }

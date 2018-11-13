@@ -51,11 +51,11 @@ public class LanguageTool {
     }
 
     private void PrintAutomataAST(AutomataAST ast){
-        System.out.println("Start state "+ ast.start);
-        System.out.println("Final states "+ ast.final_states.toString());
+        System.out.println("Start state "+ ast.getStart());
+        System.out.println("Final states "+ ast.getFinal_states().toString());
 
-        System.out.println("Transitions " + ast.transitions.toString());
-        System.out.println("Alphabet " + ast.alphabet.toString());
-        System.out.println("States " + ast.states.toString());
+        System.out.println("Transitions " + ast.getTransitions().toString());
+        System.out.println("Alphabet " + ast.getAlphabet().toString());
+        System.out.println("States " + ast.getStates().toString());
     }
 }

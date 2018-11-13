@@ -1,4 +1,9 @@
+import AST.AutomataAST;
 import lexing.*;
+import parsing.AutomataParser;
+import parsing.DFAParser;
+import parsing.NFAParser;
+import parsing.RegExpParser;
 import util.Token;
 
 import java.io.IOException;
@@ -29,10 +34,13 @@ public class LanguageTool {
                 // TODO: 11/9/18 write a parser for parsing from tokens and check validation of structure
                 if(type.equals("DFA") ){
                     //PARSE TO AUTOMATA AST - TYPE DFA
+                    AutomataParser dfa_parser = new DFAParser(tokens);
                 }else if(type.equals("NFA")){
                     //PARSE TO AUTOMATA AST - TYPE NFA
+                    AutomataParser nfa_parser = new NFAParser(tokens);
                 }else{
                     //PARSE TO REG EXP
+                    RegExpParser reg_parser = new RegExpParser(tokens);
                 }
             }
         }catch (IOException e){

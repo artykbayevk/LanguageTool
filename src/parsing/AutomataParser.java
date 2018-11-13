@@ -7,7 +7,10 @@ import java.util.List;
 
 public abstract class AutomataParser {
 
+    List<Token> tokens;
+
     public AutomataParser(List<Token> tokens) {
+        this.tokens = tokens;
     }
 
 

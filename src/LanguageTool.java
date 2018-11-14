@@ -1,4 +1,5 @@
 import AST.AutomataAST;
+import AST.RegularExpression;
 import lexing.*;
 import parsing.AutomataParser;
 import parsing.RegExpParser;
@@ -21,23 +22,25 @@ public class LanguageTool {
             lexer = new RegExpLexer(path);
         }
 
-
         try{
             tokens = lexer.getTokens();
-            System.out.println(tokens.size());
-            if(tokens.size() != 0){
-                PrintTokens(tokens);
-                if(type.equals("DFA") || type.equals("NFA")){
-                    AutomataParser automataParser = new AutomataParser(tokens);
-                    AutomataAST AST = automataParser.getAutomataAST();
-                    if(AST != null){
-                        PrintAutomataAST(AST);
+            if (tokens != null){
+                if(tokens.size() != 0){
+                    PrintTokens(tokens);
+
+                    if(type.equals("DFA") || type.equals("NFA")){
+                        AutomataParser automataParser = new AutomataParser(tokens);
+                        AutomataAST AST = automataParser.getAutomataAST();
+                        if(AST != null){
+                            PrintAutomataAST(AST);
+                        }
+                    }else{
+                        // TODO PARSE TO REG EXP
+                        RegExpParser reg_parser = new RegExpParser(tokens);
                     }
-                }else{
-                    // TODO PARSE TO REG EXP
-                    RegExpParser reg_parser = new RegExpParser(tokens);
                 }
             }
+
         }catch (IOException e){
             System.out.println("Problems in Lexing");
         }
@@ -57,5 +60,10 @@ public class LanguageTool {
         System.out.println("Transitions " + ast.getTransitions().toString());
         System.out.println("Alphabet " + ast.getAlphabet().toString());
         System.out.println("States " + ast.getStates().toString());
+    }
+
+
+    private void PrintRegExpAST(RegularExpression regexp){
+        System.out.println("Will be smth");
     }
 }

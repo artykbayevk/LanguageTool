@@ -28,7 +28,7 @@ public class LanguageTool {
                 if(tokens.size() != 0){
 
 //                    if you want to print tokens
-                    PrintTokens(tokens);
+//                    PrintTokens(tokens);
 
                     if(type.equals("DFA") || type.equals("NFA")){
                         AutomataParser automataParser = new AutomataParser(tokens);
@@ -39,6 +39,7 @@ public class LanguageTool {
                     }else{
                         // TODO PARSE TO REG EXP
                         RegExpParser reg_parser = new RegExpParser(tokens);
+                        RegularExpression regExpAST = reg_parser.regExpAST();
                     }
                 }
             }

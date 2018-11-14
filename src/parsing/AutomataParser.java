@@ -73,6 +73,7 @@ public  class AutomataParser {
                         //CREATING AST
                         alphabet.add(character);
                         states.add(from);
+                        states.addAll(line);
                         if(transitions.containsKey(from)){
                             transitions.get(from).put(character, to);
                         }else{

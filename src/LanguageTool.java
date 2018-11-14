@@ -26,6 +26,8 @@ public class LanguageTool {
             tokens = lexer.getTokens();
             if (tokens != null){
                 if(tokens.size() != 0){
+
+//                    if you want to print tokens
                     PrintTokens(tokens);
 
                     if(type.equals("DFA") || type.equals("NFA")){

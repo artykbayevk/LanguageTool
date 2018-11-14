@@ -11,6 +11,4 @@ public class RegExpParser {
         this.tokens = tokens;
     }
 
-
-
 }

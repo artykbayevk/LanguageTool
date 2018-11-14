@@ -38,4 +38,5 @@ public class RegExpLexer extends Lexer {
         }
         return LexerCharList;
     }
+
 }

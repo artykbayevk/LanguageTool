@@ -37,7 +37,6 @@ public class LanguageTool {
                             PrintAutomataAST(AST);
                         }
                     }else{
-                        // TODO PARSE TO REG EXP
                         RegExpParser reg_parser = new RegExpParser(tokens);
                         RegularExpression regExpAST = reg_parser.regExpAST();
                     }
@@ -69,4 +68,13 @@ public class LanguageTool {
     private void PrintRegExpAST(RegularExpression regexp){
         System.out.println("Will be smth");
     }
+
+    // TODO: 11/15/18 Write a semantic analyzer for NFA,DFA and RegExp 
+
+
+    // TODO: 11/15/18 Write a executor for DFA 
+
+
+    // TODO: 11/15/18 Write a converter - plak plak 
+
 }

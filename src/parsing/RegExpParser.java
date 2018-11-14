@@ -34,7 +34,12 @@ public class RegExpParser {
 
     }
 
+
+    // TODO: 11/15/18 Write a parser with recursive descent, which will be return RegExpAST 
     public RegularExpression regExpAST(){
         return null;
     }
+
+
+    // TODO: 11/15/18 Create a function for creating a Tree 
 }

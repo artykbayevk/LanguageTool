@@ -6,9 +6,10 @@ import java.util.List;
 
 public class ConcatRegularExpression implements RegularExpression {
 
-    public List<RegularExpression> regExps;
+    public RegularExpression leftHandSide, rightHandSide;
 
-    public ConcatRegularExpression(List<RegularExpression> regExps) {
-        this.regExps = regExps;
+    public ConcatRegularExpression(RegularExpression leftHandSide, RegularExpression rightHandSide) {
+        this.leftHandSide = leftHandSide;
+        this.rightHandSide = rightHandSide;
     }
 }

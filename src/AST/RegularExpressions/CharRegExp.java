@@ -8,6 +8,5 @@ public class CharRegExp implements RegularExpression {
 
     public CharRegExp(Character character) {
         this.character = character;
-        System.out.println("This character in Regular Expression: " + character);
     }
 }

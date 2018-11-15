@@ -5,13 +5,13 @@ import AST.RegularExpression;
 import java.util.List;
 
 public class SelectionRegularExpression implements RegularExpression {
-    public List<RegularExpression> variables;
 
+    public RegularExpression leftHandSide, rightHandSide;
 
-    public SelectionRegularExpression(List<RegularExpression> variables) {
-        this.variables = variables;
+    public SelectionRegularExpression(RegularExpression leftHandSide, RegularExpression rightHandSide) {
+        this.leftHandSide = leftHandSide;
+        this.rightHandSide = rightHandSide;
     }
 
-
-
+    
 }

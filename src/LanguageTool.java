@@ -38,7 +38,9 @@ public class LanguageTool {
                         }
                     }else{
                         RegExpParser reg_parser = new RegExpParser(tokens);
-                        RegularExpression regExpAST = reg_parser.regExpAST();
+                        RegularExpression regExpAST = reg_parser.parseRegExp();
+                        String test = "sfsdf";
+
                     }
                 }
             }

@@ -21,15 +21,37 @@ public class RegExpParser {
 
         Token current = tokens.get(0);
 
-        if(!current.val.equals("(") || !tokens.get(1).val.equals("(")){
-            return parseLiteral(current.val.charAt(0));
+        if(current.val.equals("(")){
+            regExp  = parseConcatOrSelectionRegExp();
+        }else if(current.val.equals("$")){
+            regExp = parseEmptyRegExp();
         }else{
-            return parseConcatOrSelectionRegExp();
+            regExp = parseLiteral(current.val.charAt(0));
         }
+
+        return regExp;
     }
 
     private RegularExpression parseConcatOrSelectionRegExp(){
-        return null;
+        tokens.remove(0); //deleting (
+        RegularExpression left = parseRegExp();
+        tokens.remove(0);
+        Token token = tokens.get(0);
+        System.out.println(token.val);
+        String op = "";
+        if(token.val.equals(".")){
+            op = "con";
+        }else{
+            op = "sel";
+        }
+
+        tokens.remove(0);
+        RegularExpression right = parseRegExp();
+        tokens.remove(0);
+
+        if(op.equals("con")) return new ConcatRegularExpression(left, right);
+        else if (op.equals("sel")) return new SelectionRegularExpression(left, right);
+        else return null;
     }
 
     private RegularExpression parseConcatRegExp(RegularExpression left, RegularExpression right){

@@ -35,8 +35,6 @@ public class LanguageTool {
                         AutomataAST AST = automataParser.getAutomataAST();
                         if(AST != null){
                             PrintAutomataAST(AST);
-
-                            String a =  "";
                         }
                     }else{
                         RegExpParser reg_parser = new RegExpParser(tokens);

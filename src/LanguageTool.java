@@ -33,14 +33,11 @@ public class LanguageTool {
                     if(type.equals("DFA") || type.equals("NFA")){
                         AutomataParser automataParser = new AutomataParser(tokens);
                         AutomataAST AST = automataParser.getAutomataAST();
-                        if(AST != null){
-                            PrintAutomataAST(AST);
-                        }
+                        if(AST != null) PrintAutomataAST(AST);
                     }else{
                         RegExpParser reg_parser = new RegExpParser(tokens);
                         RegularExpression regExpAST = reg_parser.parseRegExp();
-                        String test = "sfsdf";
-
+                        regExpAST.printElements();
                     }
                 }
             }
@@ -65,7 +62,6 @@ public class LanguageTool {
         System.out.println("Alphabet " + ast.getAlphabet().toString());
         System.out.println("States " + ast.getStates().toString());
     }
-
 
     private void PrintRegExpAST(RegularExpression regexp){
         System.out.println("Will be smth");

@@ -13,5 +13,12 @@ public class SelectionRegularExpression implements RegularExpression {
         this.rightHandSide = rightHandSide;
     }
 
-    
+    @Override
+    public void printElements() {
+        System.out.print("(");
+        leftHandSide.printElements();
+        System.out.print(" or ");
+        rightHandSide.printElements();
+        System.out.print(")");
+    }
 }

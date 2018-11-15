@@ -7,7 +7,8 @@ public class EmptyRegularExpression implements RegularExpression {
 
     public EmptyRegularExpression() {}
 
-    public Character getEmpty() {
-        return empty;
+    @Override
+    public void printElements() {
+        System.out.print(empty);
     }
 }

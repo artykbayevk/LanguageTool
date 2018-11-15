@@ -12,4 +12,14 @@ public class ConcatRegularExpression implements RegularExpression {
         this.leftHandSide = leftHandSide;
         this.rightHandSide = rightHandSide;
     }
+
+
+    @Override
+    public void printElements() {
+        System.out.print("(");
+        leftHandSide.printElements();
+        System.out.print(" and ");
+        rightHandSide.printElements();
+        System.out.print(")");
+    }
 }

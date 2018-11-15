@@ -8,4 +8,10 @@ public class KleeneStarRegularExpression implements RegularExpression {
     public KleeneStarRegularExpression(RegularExpression regularExpressionGroup) {
         this.regularExpressionGroup = regularExpressionGroup;
     }
+
+    @Override
+    public void printElements() {
+        regularExpressionGroup.printElements();
+        System.out.print("*");
+    }
 }

@@ -14,7 +14,8 @@ public class RegExpParser {
         this.tokens = tokens;
     }
 
-    // TODO: 11/15/18 Write a parser with recursive descent, which will be return RegExpAST 
+
+
     public RegularExpression parseRegExp(){
         // MY REGULAR EXPRESSION  - (a|b)
         // NEXT REGULAR EXPRESSION  - (a.b)
@@ -34,24 +35,34 @@ public class RegExpParser {
 
     private RegularExpression parseConcatOrSelectionRegExp(){
         tokens.remove(0); //deleting (
+
         RegularExpression left = parseRegExp();
-        tokens.remove(0);
-        Token token = tokens.get(0);
-        System.out.println(token.val);
+        tokens.remove(0); // delete left part
+
+        Token token = tokens.get(0); //taking a separator
         String op = "";
+
         if(token.val.equals(".")){
             op = "con";
-        }else{
+        }else if(token.val.equals("|")){
             op = "sel";
+        }else if(token.val.equals("*")){
+            tokens.remove(0);
+            return  parseKleeneStar(left);
         }
 
-        tokens.remove(0);
+        tokens.remove(0); // remove separator
         RegularExpression right = parseRegExp();
-        tokens.remove(0);
+        tokens.remove(0); // remove right parenthesis
 
-        if(op.equals("con")) return new ConcatRegularExpression(left, right);
-        else if (op.equals("sel")) return new SelectionRegularExpression(left, right);
-        else return null;
+        if(op.equals("con")) {
+            return parseConcatRegExp(left, right);
+        }
+        else if (op.equals("sel")) {
+            return parseSelectionRegExp(left, right);
+        }
+        return null;
+
     }
 
     private RegularExpression parseConcatRegExp(RegularExpression left, RegularExpression right){
@@ -67,6 +78,7 @@ public class RegExpParser {
     }
 
     private RegularExpression parseKleeneStar(RegularExpression inputRegularExpression){
+
         return new KleeneStarRegularExpression(inputRegularExpression);
     }
 
@@ -74,6 +86,4 @@ public class RegExpParser {
         return new EmptyRegularExpression();
     }
 
-
-    // TODO: 11/15/18 Create a function for creating a Tree
 }

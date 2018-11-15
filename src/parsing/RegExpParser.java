@@ -16,7 +16,8 @@ public class RegExpParser {
 
     // TODO: 11/15/18 Write a parser with recursive descent, which will be return RegExpAST 
     public RegularExpression parseRegExp(){
-        // MY REGULAR EXPRESSION  - ((a|b).(c))
+        // MY REGULAR EXPRESSION  - (a|b)
+        // NEXT REGULAR EXPRESSION  - (a.b)
 
         Token current = tokens.get(0);
 
@@ -50,5 +51,7 @@ public class RegExpParser {
     private RegularExpression parseEmptyRegExp(){
         return new EmptyRegularExpression();
     }
-    // TODO: 11/15/18 Create a function for creating a Tree 
+
+
+    // TODO: 11/15/18 Create a function for creating a Tree
 }

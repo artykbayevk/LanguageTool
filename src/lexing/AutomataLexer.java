@@ -11,7 +11,6 @@ public class AutomataLexer extends Lexer {
     public AutomataLexer(String path){
         super(path);
     }
-
     @Override
     public List<Token> getTokens() throws IOException {
         try{

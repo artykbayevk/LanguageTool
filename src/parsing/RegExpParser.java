@@ -14,7 +14,6 @@ public class RegExpParser {
         this.tokens = tokens;
     }
 
-
     // TODO: 11/15/18 Write a parser with recursive descent, which will be return RegExpAST 
     public RegularExpression parseRegExp(){
         // MY REGULAR EXPRESSION  - ((a|b).(c))

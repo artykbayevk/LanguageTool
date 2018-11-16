@@ -20,4 +20,9 @@ public class KleeneStarRegularExpression implements RegularExpression {
     public String value() {
         return regularExpressionGroup.value();
     }
+
+    @Override
+    public RegularExpression itself() {
+        return this;
+    }
 }

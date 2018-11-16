@@ -19,4 +19,10 @@ public class CharRegExp implements RegularExpression {
     public String value() {
         return character.toString();
     }
+
+
+    @Override
+    public RegularExpression itself() {
+        return this;
+    }
 }

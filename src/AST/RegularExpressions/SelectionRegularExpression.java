@@ -27,4 +27,10 @@ public class SelectionRegularExpression implements RegularExpression {
     public String value() {
         return leftHandSide.value() +' '+rightHandSide.value();
     }
+
+
+    @Override
+    public RegularExpression itself() {
+        return this;
+    }
 }

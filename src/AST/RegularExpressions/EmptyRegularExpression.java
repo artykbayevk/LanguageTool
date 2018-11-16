@@ -17,4 +17,9 @@ public class EmptyRegularExpression implements RegularExpression {
     public String value() {
         return empty.toString();
     }
+
+    @Override
+    public RegularExpression itself() {
+        return this;
+    }
 }

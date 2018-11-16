@@ -41,6 +41,8 @@ public class LanguageTool {
 
                         String res = regExpAST.value();
                         System.out.println(res);
+
+                        String stop = "";
                     }
                 }
             }

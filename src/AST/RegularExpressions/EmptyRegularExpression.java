@@ -11,4 +11,10 @@ public class EmptyRegularExpression implements RegularExpression {
     public void printElements() {
         System.out.print(empty);
     }
+
+
+    @Override
+    public String value() {
+        return empty.toString();
+    }
 }

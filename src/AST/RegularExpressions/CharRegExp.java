@@ -14,4 +14,9 @@ public class CharRegExp implements RegularExpression {
     public void printElements() {
         System.out.print(character);
     }
+
+    @Override
+    public String value() {
+        return character.toString();
+    }
 }

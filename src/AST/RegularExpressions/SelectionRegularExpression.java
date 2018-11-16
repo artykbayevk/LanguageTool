@@ -21,4 +21,10 @@ public class SelectionRegularExpression implements RegularExpression {
         rightHandSide.printElements();
         System.out.print(")");
     }
+
+
+    @Override
+    public String value() {
+        return leftHandSide.value() +' '+rightHandSide.value();
+    }
 }

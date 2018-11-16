@@ -14,4 +14,10 @@ public class KleeneStarRegularExpression implements RegularExpression {
         regularExpressionGroup.printElements();
         System.out.print("*");
     }
+
+
+    @Override
+    public String value() {
+        return regularExpressionGroup.value();
+    }
 }

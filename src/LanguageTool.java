@@ -38,6 +38,9 @@ public class LanguageTool {
                         RegExpParser reg_parser = new RegExpParser(tokens);
                         RegularExpression regExpAST = reg_parser.parseRegExp();
                         regExpAST.printElements();
+
+                        String res = regExpAST.value();
+                        System.out.println(res);
                     }
                 }
             }

@@ -36,11 +36,16 @@ public class LanguageTool {
                         if(AST != null) PrintAutomataAST(AST);
                     }else{
                         RegExpParser reg_parser = new RegExpParser(tokens);
-                        RegularExpression regExpAST = reg_parser.parseRegExp();
-                        regExpAST.printElements();
+                        try{
+                            RegularExpression regExpAST = reg_parser.parseRegExp();
+                            System.out.println(regExpAST.toString());
+                            regExpAST.printElements();
+                            String res = regExpAST.value();
+                            System.out.println(res);
+                        }catch (Exception e){
+                            System.out.println("Exception in parsing");
+                        }
 
-                        String res = regExpAST.value();
-                        System.out.println(res);
 
                         String stop = "";
                     }

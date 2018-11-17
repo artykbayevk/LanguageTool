@@ -7,7 +7,7 @@ import util.Token;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegExpParser {
+public class RegExpParser{
     List<Token> tokens;
     RegularExpression regExp;
     public RegExpParser(List<Token> tokens) {
@@ -16,7 +16,7 @@ public class RegExpParser {
 
 
 
-    public RegularExpression parseRegExp(){
+    public RegularExpression parseRegExp()throws Exception{
         // MY REGULAR EXPRESSION  - (a|b)
         // NEXT REGULAR EXPRESSION  - (a.b)
 
@@ -33,34 +33,39 @@ public class RegExpParser {
         return regExp;
     }
 
-    private RegularExpression parseConcatOrSelectionRegExp(){
+    private RegularExpression parseConcatOrSelectionRegExp() throws Exception{
         tokens.remove(0); //deleting (
+        try {
+            RegularExpression left = parseRegExp();
+            tokens.remove(0); // delete left part
 
-        RegularExpression left = parseRegExp();
-        tokens.remove(0); // delete left part
+            Token token = tokens.get(0); //taking a separator
+            String op = "";
 
-        Token token = tokens.get(0); //taking a separator
-        String op = "";
+            if(token.val.equals(".")){
+                op = "con";
+            }else if(token.val.equals("|")){
+                op = "sel";
+            }else if(token.val.equals("*")){
+                tokens.remove(0);
+                return  parseKleeneStar(left);
+            }
 
-        if(token.val.equals(".")){
-            op = "con";
-        }else if(token.val.equals("|")){
-            op = "sel";
-        }else if(token.val.equals("*")){
-            tokens.remove(0);
-            return  parseKleeneStar(left);
+            tokens.remove(0); // remove separator
+            RegularExpression right = parseRegExp();
+            tokens.remove(0); // remove right parenthesis
+
+            if(op.equals("con")) {
+                return parseConcatRegExp(left, right);
+            }
+            else if (op.equals("sel")) {
+                return parseSelectionRegExp(left, right);
+            }
+        }catch (Exception e){
+            System.out.println("Error on token: " + tokens.get(0).val + " position: "+ tokens.get(0).pos);
         }
 
-        tokens.remove(0); // remove separator
-        RegularExpression right = parseRegExp();
-        tokens.remove(0); // remove right parenthesis
 
-        if(op.equals("con")) {
-            return parseConcatRegExp(left, right);
-        }
-        else if (op.equals("sel")) {
-            return parseSelectionRegExp(left, right);
-        }
         return null;
 
     }

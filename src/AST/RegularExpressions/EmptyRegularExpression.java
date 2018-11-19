@@ -1,5 +1,6 @@
 package AST.RegularExpressions;
 
+import AST.AutomataAST;
 import AST.RegularExpression;
 
 public class EmptyRegularExpression implements RegularExpression {
@@ -21,5 +22,11 @@ public class EmptyRegularExpression implements RegularExpression {
     @Override
     public RegularExpression itself() {
         return this;
+    }
+
+
+    @Override
+    public AutomataAST convertToNFA() {
+        return null;
     }
 }

@@ -6,4 +6,6 @@ public interface RegularExpression {
 
     RegularExpression itself();
 
+    AutomataAST convertToNFA();
+
 }

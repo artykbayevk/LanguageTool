@@ -26,7 +26,7 @@ public class SelectionRegularExpression implements RegularExpression {
 
     @Override
     public String value() {
-        return leftHandSide.value() +' '+rightHandSide.value();
+        return leftHandSide.value() +" or "+rightHandSide.value();
     }
 
 

@@ -1,5 +1,8 @@
 package AST;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,5 +41,31 @@ public class AutomataAST {
         return start;
     }
 
+    public void execute(String type, String word) throws Exception{
+        if (!type.equals("DFA")){
+            throw new Exception("This it not a DFA");
+        }
 
+        List<Character> word_sep = new ArrayList<Character>();
+        char word_arr[] = word.toCharArray();
+        for (int i = 0; i <word_arr.length ; i++) {
+            word_sep.add(word_arr[i]);
+        }
+
+
+        if(!this.alphabet.containsAll(word_sep)) throw new Exception("This words can't run on this DFA");
+        String current = this.start;
+
+        for (Character input :word_sep) {
+            current = this.transitions.get(current).get(input).toArray()[0].toString();
+        }
+
+        if(this.getFinal_states().contains(current)){
+            System.out.println("Accepted word");
+        }else{
+            System.out.println("Not accepted word");
+        }
+
+
+    }
 }

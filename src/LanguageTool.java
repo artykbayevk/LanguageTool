@@ -14,19 +14,24 @@ import java.util.List;
 
 public class LanguageTool {
     private String out_dir;
+    private String type;
+
+
     private List<Token> tokens;
     private Lexer lexer;
-    private String type;
 
 
     private AutomataAST DFA;
     private AutomataAST NFA;
     private RegularExpression REGEXP;
 
+    private SemanticAnalyzer semanticAnalyzer;
 
     public LanguageTool(String path, String type, String output_directory){
         this.out_dir = output_directory;
         this.type = type;
+
+
         if(type.equals("DFA") || type.equals("NFA")) {
             lexer = new AutomataLexer(path);
         }else{
@@ -40,8 +45,11 @@ public class LanguageTool {
                     if(type.equals("DFA") || type.equals("NFA")){
                         AutomataParser automataParser = new AutomataParser(tokens);
                         AutomataAST AST = automataParser.getAutomataAST();
-                        if(AST != null) System.out.println("Lexed and Parsed DFA/NFA");
-//                            PrintAutomataAST(AST);
+                        System.out.println("----");
+                        System.out.println("Lexed and Parsed "+type);
+                        PrintAutomataAST(AST);
+                        System.out.println("----");
+
                         if(type.equals("DFA")) this.DFA = AST;
                         if(type.equals("NFA")) this.NFA = AST;
 
@@ -50,20 +58,19 @@ public class LanguageTool {
                         RegExpParser reg_parser = new RegExpParser(tokens);
                         try{
                             RegularExpression regExpAST = reg_parser.parseRegExp();
+                            System.out.println("Lexed and Parsed regular expression");
                             this.REGEXP = regExpAST;
-
-
-//                            System.out.println(regExpAST.toString());
-//                            regExpAST.printElements();
                         }catch (Exception e){
-                            System.out.println("Exception in parsing regular expression!");
+                            throw new Exception("Exception in parsing regular expression!");
                         }
                     }
+                }else{
+                    throw new Exception("Tokens is empty");
                 }
             }
 
-        }catch (IOException e){
-            System.out.println("Problems in Lexing");
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -85,38 +92,19 @@ public class LanguageTool {
 
 
 
-    public AutomataAST getDFA() {
-        return this.DFA;
-    }
-
-    public AutomataAST getNFA() {
-        return this.NFA;
-    }
-
-    public RegularExpression getREGEXP() {
-        return this.REGEXP;
-    }
-
-
-    public boolean checkValidation() throws Exception {
-        if(type.equals("DFA")){
-            SemanticAnalyzer semDFA = new SemanticAnalyzerDFA(this.DFA);
-            return semDFA.validator();
-        }else if(type.equals("NFA")){
-            SemanticAnalyzer semNFA = new SemanticAnalyzerNFA(this.NFA);
-            return semNFA.validator();
-        }else if(type.equals("REG")){
-            SemanticAnalyzer semREG = new SemanticAnalyzerRegExp(this.REGEXP);
-            return semREG.validator();
+    void checkValidation() throws Exception {
+        switch (type){
+            case "DFA": semanticAnalyzer = new SemanticAnalyzerDFA(this.DFA);break;
+            case "NFA": semanticAnalyzer = new SemanticAnalyzerNFA(this.NFA);break;
+            case "REG": semanticAnalyzer = new SemanticAnalyzerRegExp(this.REGEXP);break;
         }
-        return false;
+
+        semanticAnalyzer.validator();
     }
-    // TODO: 11/15/18 Write a semantic analyzer for NFA,DFA and RegExp 
 
 
-    // TODO: 11/15/18 Write a executor for DFA 
 
-
-    // TODO: 11/15/18 Write a converter - plak plak 
-
+    void executeDFA(String word) throws Exception{
+        DFA.execute(type, word);
+    }
 }

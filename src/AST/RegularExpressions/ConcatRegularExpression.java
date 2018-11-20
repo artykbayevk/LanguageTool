@@ -26,7 +26,7 @@ public class ConcatRegularExpression implements RegularExpression {
 
     @Override
     public String value() {
-        return leftHandSide.value() + ' '+rightHandSide.value();
+        return leftHandSide.value() + " and "+ rightHandSide.value();
     }
 
 

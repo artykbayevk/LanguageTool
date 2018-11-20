@@ -26,20 +26,25 @@ public class Project {
         if(file.exists()){
             System.out.println("File exists");
 
-            LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString());
+            try{
+                LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString());
+                try {
+                    tool.checkValidation();
 
-            boolean validated = false;
-            try {
-                validated = tool.checkValidation();
-            } catch (Exception e) {
+                    if(type.equals("DFA")){
+                        String word = "abab";
+                        tool.executeDFA(word);
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }catch (Exception e){
                 e.printStackTrace();
             }
-            System.out.println("Our AST : validation: "+validated);
-
-
 
         }else{
-            System.out.println("Not here ");
+            System.out.println("File doesn't exist");
         }
     }
 }

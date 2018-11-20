@@ -14,7 +14,7 @@ public class RegExpLexer extends Lexer {
     }
 
     @Override
-    public List<Token> getTokens() throws IOException{
+    public List<Token> getTokens() throws Exception{
         try{
             BufferedReader reader = new BufferedReader(new FileReader(file));
             int ch, el = 0;
@@ -23,8 +23,7 @@ public class RegExpLexer extends Lexer {
                 ch = reader.read();
 
                 if(ch == -1 && el == 0){
-                    System.out.println("File is empty");
-                    return null;
+                    throw new Exception("File is empty");
                 }
                 el++;
                 if(ch != -1) line+=(char)ch;
@@ -33,8 +32,8 @@ public class RegExpLexer extends Lexer {
             for (int i = 0; i < line.length() ; i++) {
                 LexerCharList.add(new Token(line.substring(i,i+1),new int[]{0, i} ));
             }
-        }catch (IOException e){
-            throw e;
+        }catch (Exception e){
+            throw new Exception("Problems in reading file");
         }
         return LexerCharList;
     }

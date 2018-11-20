@@ -15,19 +15,16 @@ public class SemanticAnalyzerDFA implements SemanticAnalyzer {
     }
 
     @Override
-    public boolean validator() throws Exception {
+    public void validator() throws Exception {
 
-//        System.out.println(DFA.getAlphabet());
-//        System.out.println(DFA.getFinal_states());
-//        System.out.println(DFA.getStart());
-//        System.out.println(DFA.getStates());
-//        System.out.println(DFA.getTransitions());
         for(Character input: DFA.getAlphabet()){
-            if(input.equals('$'))return false;
+            if(input.equals('$')) throw new Exception("There is empty input!");
         }
 
 
         Set<String> outputs = new HashSet<>();
+
+        if (!DFA.getStates().contains(DFA.getStart())) throw new Exception("There is no start state");
 
         for (String state:DFA.getStates()) {
             if(DFA.getTransitions().get(state) == null) throw new Exception("There is null transition");
@@ -42,6 +39,7 @@ public class SemanticAnalyzerDFA implements SemanticAnalyzer {
         if(!outputs.containsAll(DFA.getFinal_states()))
             throw new Exception("Final State not reached");
 
-        return true;
+
+        System.out.println("Semantic is OK!");
     }
 }

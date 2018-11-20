@@ -19,7 +19,7 @@ public class KleeneStarRegularExpression implements RegularExpression {
 
     @Override
     public String value() {
-        return regularExpressionGroup.value();
+        return regularExpressionGroup.value()+"star";
     }
 
     @Override

@@ -11,7 +11,7 @@ public class SemanticAnalyzerNFA implements SemanticAnalyzer {
     }
 
     @Override
-    public boolean validator() {
+    public boolean validator()throws Exception {
         return false;
     }
 }

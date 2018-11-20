@@ -50,7 +50,7 @@ public class AutomataLexer extends Lexer {
         boolean valid = true;
         for (int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
-            if(!Character.toString(c).matches("^[a-zA-P0-9,=;>]*$")){
+            if(!Character.toString(c).matches("^[a-zA-P0-9,=;>$]*$")){
                 System.out.println("You have a specific char that not valid at position: "+row+' '+i);
                 System.out.println();
                 valid=false;

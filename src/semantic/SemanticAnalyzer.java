@@ -2,5 +2,5 @@ package semantic;
 
 public interface SemanticAnalyzer {
 
-    boolean validator();
+    boolean validator() throws Exception;
 }

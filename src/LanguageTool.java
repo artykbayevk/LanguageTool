@@ -102,9 +102,23 @@ public class LanguageTool {
         semanticAnalyzer.validator();
     }
 
-
-
     void executeDFA(String word) throws Exception{
         DFA.execute(type, word);
+    }
+
+    AutomataAST convertNFAtoDFA() throws Exception{
+        return null;
+    }
+
+    public void setDFA(AutomataAST DFA) {
+        this.DFA = DFA;
+    }
+
+    public void setNFA(AutomataAST NFA) {
+        this.NFA = NFA;
+    }
+
+    public void setREGEXP(RegularExpression REGEXP) {
+        this.REGEXP = REGEXP;
     }
 }

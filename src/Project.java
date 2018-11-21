@@ -36,6 +36,10 @@ public class Project {
                         tool.executeDFA(word);
                     }
 
+                    if(type.equals("NFA")){
+                        tool.setDFA(tool.convertNFAtoDFA());
+                    }
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }

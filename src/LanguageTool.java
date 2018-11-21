@@ -1,6 +1,8 @@
 import AST.AutomataAST;
 import AST.RegularExpression;
-import lexing.*;
+import lexing.AutomataLexer;
+import lexing.Lexer;
+import lexing.RegExpLexer;
 import parsing.AutomataParser;
 import parsing.RegExpParser;
 import semantic.SemanticAnalyzer;
@@ -9,8 +11,9 @@ import semantic.SemanticAnalyzerNFA;
 import semantic.SemanticAnalyzerRegExp;
 import util.Token;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class LanguageTool {
     private String out_dir;
@@ -107,7 +110,14 @@ public class LanguageTool {
     }
 
     AutomataAST convertNFAtoDFA() throws Exception{
-        return null;
+        this.NFA.getAlphabet().remove('$');
+        Set<Character> alphabet =this.NFA.getAlphabet();
+
+        for (Map.Entry<String, Map<Character, Set<String> >> pair:NFA.getTransitions().entrySet()) {
+            System.out.println(pair);
+        }
+
+        return this.NFA;
     }
 
     public void setDFA(AutomataAST DFA) {

@@ -12,12 +12,12 @@ public class Project {
         RegularExpression REGEXP;
 
 
-        String type = "DFA";
-        File file = new File(baseDirectory, "structure_DFA.txt");
+//        String type = "DFA";
+//        File file = new File(baseDirectory, "structure_DFA.txt");
 
 
-//        String type = "NFA";
-//        File file = new File(baseDirectory, "structure_NFA.txt");
+        String type = "NFA";
+        File file = new File(baseDirectory, "structure_NFA.txt");
 
 
 //        String type = "REG";
@@ -37,6 +37,7 @@ public class Project {
                     }
 
                     if(type.equals("NFA")){
+                        System.out.println("----");
                         tool.setDFA(tool.convertNFAtoDFA());
                     }
 

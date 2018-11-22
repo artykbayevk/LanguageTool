@@ -29,6 +29,7 @@ public class RegExpLexer extends Lexer {
                 if(ch != -1) line+=(char)ch;
             }while (ch != -1);
             line = line.trim();
+            line = line.replaceAll(" ", "");
             for (int i = 0; i < line.length() ; i++) {
                 LexerCharList.add(new Token(line.substring(i,i+1),new int[]{0, i} ));
             }

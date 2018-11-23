@@ -93,8 +93,6 @@ public class LanguageTool {
         System.out.println("States " + ast.getStates().toString());
     }
 
-
-
     void checkValidation() throws Exception {
         switch (type){
             case "DFA": semanticAnalyzer = new SemanticAnalyzerDFA(this.DFA);break;
@@ -130,5 +128,9 @@ public class LanguageTool {
 
     public void setREGEXP(RegularExpression REGEXP) {
         this.REGEXP = REGEXP;
+    }
+
+    public void printRegExp(){
+        this.REGEXP.printElements();
     }
 }

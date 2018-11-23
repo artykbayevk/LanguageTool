@@ -7,21 +7,20 @@ public class Project {
     public static void main(String[] args) {
         Config config = new Config();
         File baseDirectory  = new File(config.abs_path);
+
+
         AutomataAST DFA;
         AutomataAST NFA;
         RegularExpression REGEXP;
 
-
 //        String type = "DFA";
 //        File file = new File(baseDirectory, "structure_DFA.txt");
 
+//        String type = "NFA";
+//        File file = new File(baseDirectory, "structure_NFA.txt");
 
-        String type = "NFA";
-        File file = new File(baseDirectory, "structure_NFA.txt");
-
-
-//        String type = "REG";
-//        File file = new File(baseDirectory, "structure_REG.txt");
+        String type = "REG";
+        File file = new File(baseDirectory, "structure_REG.txt");
 
         if(file.exists()){
             System.out.println("File exists");
@@ -32,6 +31,7 @@ public class Project {
                     tool.checkValidation();
 
                     if(type.equals("DFA")){
+                        System.out.println("----");
                         String word = "abab";
                         tool.executeDFA(word);
                     }
@@ -39,6 +39,10 @@ public class Project {
                     if(type.equals("NFA")){
                         System.out.println("----");
                         tool.setDFA(tool.convertNFAtoDFA());
+                    }
+
+                    if(type.equals("REG")){
+                        tool.printRegExp();
                     }
 
                 }catch (Exception e){

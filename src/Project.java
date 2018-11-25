@@ -16,11 +16,11 @@ public class Project {
 //        String type = "DFA";
 //        File file = new File(baseDirectory, "structure_DFA.txt");
 
-//        String type = "NFA";
-//        File file = new File(baseDirectory, "structure_NFA.txt");
+        String type = "NFA";
+        File file = new File(baseDirectory, "structure_NFA.txt");
 
-        String type = "REG";
-        File file = new File(baseDirectory, "structure_REG.txt");
+//        String type = "REG";
+//        File file = new File(baseDirectory, "structure_REG.txt");
 
         if(file.exists()){
             System.out.println("File exists");
@@ -38,7 +38,11 @@ public class Project {
 
                     if(type.equals("NFA")){
                         System.out.println("----");
+                        System.out.println("Converting");
                         tool.setDFA(tool.convertNFAtoDFA());
+                        System.out.println("----");
+                        tool.changeType("DFA");
+                        tool.executeDFA("1100");
                     }
 
                     if(type.equals("REG")){

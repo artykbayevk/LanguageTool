@@ -56,6 +56,7 @@ public class AutomataAST {
         if(!this.alphabet.containsAll(word_sep)) throw new Exception("This words can't run on this DFA");
         String current = this.start;
 
+
         for (Character input :word_sep) {
             current = this.transitions.get(current).get(input).toArray()[0].toString();
         }

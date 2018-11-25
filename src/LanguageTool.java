@@ -11,9 +11,7 @@ import semantic.SemanticAnalyzerNFA;
 import semantic.SemanticAnalyzerRegExp;
 import util.Token;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LanguageTool {
     private String out_dir;
@@ -104,18 +102,134 @@ public class LanguageTool {
     }
 
     void executeDFA(String word) throws Exception{
-        DFA.execute(type, word);
+        this.DFA.execute(type, word);
     }
 
     AutomataAST convertNFAtoDFA() throws Exception{
-        this.NFA.getAlphabet().remove('$');
-        Set<Character> alphabet =this.NFA.getAlphabet();
-
-        for (Map.Entry<String, Map<Character, Set<String> >> pair:NFA.getTransitions().entrySet()) {
-            System.out.println(pair);
+    //Create $-closure
+        Map<String, Set<String>> e_closure_map = new HashMap<>();
+        for (Map.Entry<String, Map<Character, Set<String>>> pair :this.NFA.getTransitions().entrySet()) {
+            e_closure_map.put(pair.getKey(), DFS(pair.getKey()));
         }
 
-        return this.NFA;
+        //Creating main DFA table
+        String start_state = String.join(",",e_closure_map.get(this.NFA.getStart()));
+        System.out.println("E-closures: " + e_closure_map);
+        System.out.println("New start: " + start_state + "\n----");
+
+        // delete empty char and craete DFA_transitions table
+        this.NFA.getAlphabet().remove('$');
+        Map<String, Map< Character , Set<String>>> dfa_transitions = new HashMap<>();
+
+
+        // recursively create DFA transitions table
+        dfa_transitions = to_DFA_transitions(start_state, dfa_transitions);
+
+        // create qTrap for completing transition table and create alphabet set
+        Set<Character> alphabet = new HashSet<>();
+        for (Map.Entry<String, Map<Character, Set<String>>> pair :dfa_transitions.entrySet()) {
+            alphabet.addAll(pair.getValue().keySet());
+        }
+
+
+        // creating trapState and allStates
+        Set<String> trapState = new HashSet<>();
+        Set<String> states = new HashSet<>();
+        Set<String> finalStates = new HashSet<>();
+        trapState.add("qTrap");
+        states.add("qTrap");
+
+
+        // declaring and assigning trapState, states and final states
+        for (Map.Entry<String, Map<Character, Set<String>>> pair :dfa_transitions.entrySet()) {
+            for (Character input_char : alphabet) {
+                if (!pair.getValue().containsKey(input_char)) {
+                    pair.getValue().put(input_char, trapState);
+                } else {
+                    Set<String> converted = new HashSet<>();
+                    converted.add(String.join(",", pair.getValue().get(input_char)));
+                    pair.getValue().put(input_char, converted);
+
+                }
+            }
+
+            String tmp[] = pair.getKey().split(",");
+
+            for (int i = 0; i < tmp.length; i++) {
+                for (String original_final : this.NFA.getFinal_states()) {
+                    if (tmp[i].equals(original_final)) finalStates.add(pair.getKey());
+                }
+            }
+            states.add(pair.getKey());
+        }
+
+        // creating DFA and return this
+        return new AutomataAST(alphabet, states, dfa_transitions, finalStates, start_state);
+    }
+
+    public Map<String, Map< Character , Set<String>>> to_DFA_transitions(String start_state, Map<String, Map< Character , Set<String>>> dfa_transitions){
+        String input_states[] = start_state.split(",");
+
+        Map<Character, Set<String>> main_transition = new HashMap<>();
+
+        //Let's check new created state on the inputs
+        for (Character input_char: this.NFA.getAlphabet()) {
+            Set<String> out_states = new HashSet<>();
+            for (String input_state : input_states) {
+                if (this.NFA.getTransitions().containsKey(input_state)) {
+                    Map<Character, Set<String>> find_transition = this.NFA.getTransitions().get(input_state);
+                    if (find_transition.containsKey(input_char)) {
+                        out_states.addAll(find_transition.get(input_char));
+                    }else{
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
+
+
+
+            // check our out_states
+            if(out_states.size() != 0) {
+                Set<String> res_states = new HashSet<>();
+                for (String next : out_states) {
+                    res_states.addAll(DFS(next));
+                }
+                main_transition.put(input_char, res_states);
+            }
+        }
+
+        dfa_transitions.put(start_state, main_transition);
+
+
+        for (Map.Entry<Character, Set<String>> pair_of_new_state:main_transition.entrySet()) {
+            String new_state = String.join(",",pair_of_new_state.getValue());
+            if(!dfa_transitions.containsKey(new_state)){
+                dfa_transitions.putAll(to_DFA_transitions(new_state, dfa_transitions));
+            }else{
+                return dfa_transitions;
+            }
+        }
+        return dfa_transitions;
+
+    }
+
+    public Set<String> DFS(String node){
+        Set<String> res = new HashSet<>();
+        res.add(node);
+        Map<Character, Set<String>> transitions = this.NFA.getTransitions().get(node);
+
+        if(transitions == null) return res;
+
+        for (Map.Entry<Character, Set<String>> pair:transitions.entrySet()) {
+            if(pair.getKey().equals('$')){
+                for (String out_state:pair.getValue()) {
+                    res.addAll(DFS(out_state));
+                }
+            }
+        }
+        return res;
     }
 
     public void setDFA(AutomataAST DFA) {
@@ -132,5 +246,9 @@ public class LanguageTool {
 
     public void printRegExp(){
         this.REGEXP.printElements();
+    }
+
+    public void changeType(String type){
+        this.type = type;
     }
 }

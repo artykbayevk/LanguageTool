@@ -17,10 +17,8 @@ public class LanguageTool {
     private String out_dir;
     private String type;
 
-
     private List<Token> tokens;
     private Lexer lexer;
-
 
     private AutomataAST DFA;
     private AutomataAST NFA;
@@ -105,8 +103,28 @@ public class LanguageTool {
         this.DFA.execute(type, word);
     }
 
+    public void setDFA(AutomataAST DFA) {
+        this.DFA = DFA;
+    }
+
+    public void setNFA(AutomataAST NFA) {
+        this.NFA = NFA;
+    }
+
+    public void setREGEXP(RegularExpression REGEXP) {
+        this.REGEXP = REGEXP;
+    }
+
+    public void printRegExp(){
+        this.REGEXP.printElements();
+    }
+
+    public void changeType(String type){
+        this.type = type;
+    }
+
     AutomataAST convertNFAtoDFA() throws Exception{
-    //Create $-closure
+        //Create $-closure
         Map<String, Set<String>> e_closure_map = new HashMap<>();
         for (Map.Entry<String, Map<Character, Set<String>>> pair :this.NFA.getTransitions().entrySet()) {
             e_closure_map.put(pair.getKey(), DFS(pair.getKey()));
@@ -167,7 +185,7 @@ public class LanguageTool {
         return new AutomataAST(alphabet, states, dfa_transitions, finalStates, start_state);
     }
 
-    public Map<String, Map< Character , Set<String>>> to_DFA_transitions(String start_state, Map<String, Map< Character , Set<String>>> dfa_transitions){
+    private Map<String, Map< Character , Set<String>>> to_DFA_transitions(String start_state, Map<String, Map< Character , Set<String>>> dfa_transitions){
         String input_states[] = start_state.split(",");
 
         Map<Character, Set<String>> main_transition = new HashMap<>();
@@ -215,7 +233,7 @@ public class LanguageTool {
 
     }
 
-    public Set<String> DFS(String node){
+    private Set<String> DFS(String node){
         Set<String> res = new HashSet<>();
         res.add(node);
         Map<Character, Set<String>> transitions = this.NFA.getTransitions().get(node);
@@ -232,23 +250,4 @@ public class LanguageTool {
         return res;
     }
 
-    public void setDFA(AutomataAST DFA) {
-        this.DFA = DFA;
-    }
-
-    public void setNFA(AutomataAST NFA) {
-        this.NFA = NFA;
-    }
-
-    public void setREGEXP(RegularExpression REGEXP) {
-        this.REGEXP = REGEXP;
-    }
-
-    public void printRegExp(){
-        this.REGEXP.printElements();
-    }
-
-    public void changeType(String type){
-        this.type = type;
-    }
 }

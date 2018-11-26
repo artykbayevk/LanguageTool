@@ -7,7 +7,7 @@ public class Project {
     public static void main(String[] args) {
         Config config = new Config();
         File baseDirectory  = new File(config.abs_path);
-
+        boolean debug = true;
 
         AutomataAST DFA;
         AutomataAST NFA;
@@ -23,45 +23,65 @@ public class Project {
         File file = new File(baseDirectory, "structure_REG.txt");
 
         if(file.exists()){
-            System.out.println("File exists");
+            System.out.println();
+            System.out.println("Your file is exist!\n");
+            System.out.println("--- Lexing and Parsing process ---\n");
 
             try{
-                LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString());
+                LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString(), debug);
+
+                System.out.println(" --- Pattern ---");
+
+
+                //printing patterns
+                if(type.equals("DFA")) {
+                    System.out.println("DFA");
+                    tool.getDFA().printAutomataAST();
+                }
+                else if(type.equals("NFA")) {
+                    System.out.println("NFA");
+                    tool.getNFA().printAutomataAST();
+                }
+                else if(type.equals("REG")) {
+                    System.out.println("Regular Expression: ");
+                    tool.getREGEXP().printElements();
+                }
+                System.out.println();
+
+                // checking validation of pattern
                 tool.checkValidation();
 
+
+                System.out.println("--- Compiling and Converting Patterns ---");
+                //running compiler on pattern
+
                 if(type.equals("DFA")){
-                    System.out.println("----");
-                    String word = "abab";
-                    tool.executeDFA(word);
+                    String word = "ab";
+                    System.out.print("Running on word "+word+" : ");
+                    tool.getDFA().execute(word);
+                    tool.convertDFAtoNFA();
+                    tool.getNFA().printAutomataAST();
+                }else if(type.equals("NFA")){
+                    String word = "abcbca";
+                    tool.convertNFAtoDFA();
+                    tool.getDFA().printAutomataAST();
+                    System.out.print("Running on word "+word+" : ");
+                    tool.getDFA().execute(word);
+
+                }else if(type.equals("REG")){
+                    String word = "ace";
+                    tool.fromRegExpToNFA();
+                    tool.convertNFAtoDFA();
+                    tool.getNFA().printAutomataAST();
+                    tool.getDFA().printAutomataAST();
+                    System.out.print("Running on word "+word+" : ");
+                    tool.getDFA().execute(word);
+                }else{
+                    System.out.println("Nothing");
                 }
-
-                if(type.equals("NFA")){
-                    System.out.println("----");
-                    System.out.println("Converting");
-                    tool.setDFA(tool.convertNFAtoDFA());
-                    System.out.println("----");
-                    tool.changeType("DFA");
-                    tool.executeDFA("bcbca");
-                }
-
-                if(type.equals("REG")){
-                    System.out.println("----");
-                    System.out.print("Regular Expression: ");
-                    tool.printRegExp();
-                    System.out.println();
-                    System.out.println("----\nConverting to NFA:");
-                    tool.setNFA(tool.fromRegExpToNFA());
-                    tool.printNFAandDFA(tool.getNFA());
-
-                    tool.setDFA(tool.convertNFAtoDFA());
-                    tool.printNFAandDFA(tool.getDFA());
-                }
-
-
             }catch (Exception e){
                 e.printStackTrace();
             }
-
         }else{
             System.out.println("File doesn't exist");
         }

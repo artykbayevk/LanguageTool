@@ -32,5 +32,6 @@ public class SemanticAnalyzerNFA implements SemanticAnalyzer {
 
 
         System.out.println("Semantic is OK!");
+        System.out.println();
     }
 }

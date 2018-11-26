@@ -41,11 +41,7 @@ public class AutomataAST {
         return start;
     }
 
-    public void execute(String type, String word) throws Exception{
-        if (!type.equals("DFA")){
-            throw new Exception("This it not a DFA");
-        }
-
+    public void execute(String word) throws Exception{
         List<Character> word_sep = new ArrayList<Character>();
         char word_arr[] = word.toCharArray();
         for (int i = 0; i <word_arr.length ; i++) {
@@ -67,7 +63,42 @@ public class AutomataAST {
             System.out.println("Not accepted word");
         }
 
-
     }
 
+    public void printAutomataAST(){
+        System.out.println();
+        System.out.println("Automata Structure:");
+
+        System.out.println("Start state: "+ start);
+        System.out.print("Final state(s): ");
+        for (String final_state: final_states){
+            System.out.print(final_state+' ');
+        }
+        System.out.println();
+
+        System.out.print("All states: ");
+        for (String state: states){
+            System.out.print(state+' ');
+        }
+        System.out.println();
+
+        System.out.print("Alphabet: ");
+        for (Character input:alphabet) {
+            System.out.print(input.toString()+' ');
+        }
+        System.out.println();
+
+        for (Map.Entry<String, Map<Character, Set<String>>> pair:transitions.entrySet()) {
+            System.out.print("State: "+pair.getKey()+" on inputs: ");
+            for (Map.Entry<Character, Set<String>> transition: pair.getValue().entrySet()){
+                System.out.print(transition.getKey()+ " : ");
+                for (String out_state:transition.getValue()) {
+                    System.out.print(out_state+' ');
+                }
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+    }
 }

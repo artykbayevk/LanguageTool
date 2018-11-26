@@ -17,5 +17,6 @@ public class SemanticAnalyzerRegExp implements SemanticAnalyzer {
             if(reg[i].equals("*") || reg[i].equals(".") || reg[i].equals(")") || reg[i].equals(null)) throw new Exception("Pattern of regExp isnt right");
         }
         System.out.println("Semantic is OK!");
+        System.out.println();
     }
 }

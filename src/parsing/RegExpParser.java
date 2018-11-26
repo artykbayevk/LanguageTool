@@ -21,7 +21,6 @@ public class RegExpParser{
         // NEXT REGULAR EXPRESSION  - (a.b)
 
         Token current = tokens.get(0);
-
         if(current.val.equals("(")){
             regExp  = parseConcatOrSelectionRegExp();
         }else if(current.val.equals("$")){
@@ -61,13 +60,13 @@ public class RegExpParser{
             else if (op.equals("sel")) {
                 return parseSelectionRegExp(left, right);
             }
+
+
         }catch (Exception e){
-            System.out.println("Error on token: " + tokens.get(0).val + " position: "+ tokens.get(0).pos);
+            e.printStackTrace();
+//            throw  new Exception("Error on token: " + tokens.get(0).val + " position: "+ tokens.get(0).pos[0]+':'+tokens.get(0).pos[1]);
         }
-
-
         return null;
-
     }
 
     private RegularExpression parseConcatRegExp(RegularExpression left, RegularExpression right){

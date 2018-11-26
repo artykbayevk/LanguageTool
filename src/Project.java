@@ -16,42 +16,48 @@ public class Project {
 //        String type = "DFA";
 //        File file = new File(baseDirectory, "structure_DFA.txt");
 
-        String type = "NFA";
-        File file = new File(baseDirectory, "structure_NFA.txt");
+//        String type = "NFA";
+//        File file = new File(baseDirectory, "structure_NFA.txt");
 
-//        String type = "REG";
-//        File file = new File(baseDirectory, "structure_REG.txt");
+        String type = "REG";
+        File file = new File(baseDirectory, "structure_REG.txt");
 
         if(file.exists()){
             System.out.println("File exists");
 
             try{
                 LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString());
-                try {
-                    tool.checkValidation();
+                tool.checkValidation();
 
-                    if(type.equals("DFA")){
-                        System.out.println("----");
-                        String word = "abab";
-                        tool.executeDFA(word);
-                    }
-
-                    if(type.equals("NFA")){
-                        System.out.println("----");
-                        System.out.println("Converting");
-                        tool.setDFA(tool.convertNFAtoDFA());
-                        System.out.println("----");
-                        tool.changeType("DFA");
-                        tool.executeDFA("1100");
-                    }
-
-                    if(type.equals("REG")){
-                        tool.printRegExp();
-                    }
-
-                }catch (Exception e){
-                    e.printStackTrace();
+                if(type.equals("DFA")){
+                    System.out.println("----");
+                    String word = "abab";
+                    tool.executeDFA(word);
                 }
+
+                if(type.equals("NFA")){
+                    System.out.println("----");
+                    System.out.println("Converting");
+                    tool.setDFA(tool.convertNFAtoDFA());
+                    System.out.println("----");
+                    tool.changeType("DFA");
+                    tool.executeDFA("bcbca");
+                }
+
+                if(type.equals("REG")){
+                    System.out.println("----");
+                    System.out.print("Regular Expression: ");
+                    tool.printRegExp();
+                    System.out.println();
+                    System.out.println("----\nConverting to NFA:");
+                    tool.setNFA(tool.fromRegExpToNFA());
+                    tool.printNFAandDFA(tool.getNFA());
+
+                    tool.setDFA(tool.convertNFAtoDFA());
+                    tool.printNFAandDFA(tool.getDFA());
+                }
+
+
             }catch (Exception e){
                 e.printStackTrace();
             }

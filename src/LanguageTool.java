@@ -31,56 +31,51 @@ public class LanguageTool {
         this.type = type;
 
 
+
+        //creating lexer object for lexing from file to tokens
         if(type.equals("DFA") || type.equals("NFA")) {
             lexer = new AutomataLexer(path);
         }else{
             lexer = new RegExpLexer(path);
         }
 
-        try{
+
+
+        try {
+            // creating tokens from lexer
             tokens = lexer.getTokens();
-            if (tokens != null){
-                if(tokens.size() != 0){
-                    if(type.equals("DFA") || type.equals("NFA")){
-                        AutomataParser automataParser = new AutomataParser(tokens);
-                        AutomataAST AST = automataParser.getAutomataAST();
-                        System.out.println("----");
-                        System.out.println("Lexed and Parsed "+type);
-                        PrintAutomataAST(AST);
-                        System.out.println("----");
 
-                        if(type.equals("DFA")) this.DFA = AST;
-                        if(type.equals("NFA")) this.NFA = AST;
+            // validate tokens
+            if (tokens != null || tokens.size() !=0){
 
-                    }else{
+                //check type of pattern
+                if(type.equals("DFA") || type.equals("NFA")){
 
-                        RegExpParser reg_parser = new RegExpParser(tokens);
-                        try{
-                            RegularExpression regExpAST = reg_parser.parseRegExp();
-                            System.out.println("Lexed and Parsed regular expression");
-                            this.REGEXP = regExpAST;
-                        }catch (Exception e){
-                            throw new Exception("Exception in parsing regular expression!");
-                        }
-                    }
-                }else{
-                    throw new Exception("Tokens is empty");
+                    //if automata parse like that
+                    AutomataParser automataParser = new AutomataParser(tokens);
+                    if(type.equals("DFA")) this.DFA = automataParser.getAutomataAST();
+                    else if(type.equals("NFA")) this.NFA = automataParser.getAutomataAST();
+                }else if(type.equals("REG")){
+
+                    //else if regular expression parse like that
+                    RegExpParser regExpParser = new RegExpParser(tokens);
+                    RegularExpression regularExpression = regExpParser.parseRegExp();
+                    this.REGEXP = regularExpression;
                 }
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void PrintTokens(List<Token> tokens){
+    private void printTokens(List<Token> tokens){
         for (Token token : tokens) {
             System.out.println("Token: " + token.val + " on " +
                     "positions:(" + token.pos[0] + ':' + token.pos[1] + ");");
         }
     }
 
-    private void PrintAutomataAST(AutomataAST ast){
+    private void printAutomataAST(AutomataAST ast){
         System.out.println("Start state "+ ast.getStart());
         System.out.println("Final states "+ ast.getFinal_states().toString());
 
@@ -116,11 +111,16 @@ public class LanguageTool {
     }
 
     public void printRegExp(){
+        System.out.print("Lexed and Parsed Regular Expression: ");
         this.REGEXP.printElements();
     }
 
     public void changeType(String type){
         this.type = type;
+    }
+
+    public AutomataAST fromRegExpToNFA(){
+        return this.REGEXP.convertToNFA();
     }
 
     AutomataAST convertNFAtoDFA() throws Exception{
@@ -250,4 +250,19 @@ public class LanguageTool {
         return res;
     }
 
+    public void printNFAandDFA(AutomataAST ast){
+        printAutomataAST(ast);
+    }
+
+    public AutomataAST getDFA() {
+        return DFA;
+    }
+
+    public AutomataAST getNFA() {
+        return NFA;
+    }
+
+    public RegularExpression getREGEXP() {
+        return REGEXP;
+    }
 }

@@ -14,13 +14,13 @@ public class Project {
         RegularExpression REGEXP;
 
 //        String type = "DFA";
-//        File file = new File(baseDirectory, "structure_DFA.txt");
+//        File file = new File(baseDirectory, "DFA.txt");
 
 //        String type = "NFA";
-//        File file = new File(baseDirectory, "structure_NFA.txt");
+//        File file = new File(baseDirectory, "NFA_3.txt");
 
         String type = "REG";
-        File file = new File(baseDirectory, "structure_REG.txt");
+        File file = new File(baseDirectory, "REG_4.txt");
 
         if(file.exists()){
             System.out.println();
@@ -29,7 +29,8 @@ public class Project {
 
             try{
                 LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString(), debug);
-
+                tool.fromRegExpToNFA();
+                tool.convertNFAtoDFA();
                 System.out.println(" --- Pattern ---");
 
 

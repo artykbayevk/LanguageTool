@@ -1,0 +1,10 @@
+qA,$>qB;
+qA,0>qB,qC;
+qA,1>qA;
+qB,1>qB;
+qB,$>qC;
+qC,0>qC;
+qC,1>qC;
+-
+begin=qA;
+final=qC;

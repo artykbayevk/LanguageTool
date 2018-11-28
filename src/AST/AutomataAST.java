@@ -101,4 +101,8 @@ public class AutomataAST {
 
         System.out.println();
     }
+
+    public RegularExpression convertToRegExp(){
+        return null; 
+    }
 }

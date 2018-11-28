@@ -232,6 +232,10 @@ public class LanguageTool {
         this.NFA =  new AutomataAST(this.DFA.getAlphabet(), this.DFA.getStates(), this.DFA.getTransitions(), this.DFA.getFinal_states(), this.DFA.getStart());
     }
 
+    void convertDFAtoRegExp() throws Exception{
+        convertDFAtoNFA();
+        this.REGEXP = this.NFA.convertToRegExp();
+    }
 
     //function for doing e-NFA transitions to DFA-transition
     private Map<String, Map< Character , Set<String>>> to_DFA_transitions(String start_state, Map<String, Map< Character , Set<String>>> dfa_transitions){

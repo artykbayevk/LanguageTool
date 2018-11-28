@@ -69,7 +69,7 @@ public class Project {
                     tool.getDFA().execute(word);
 
                 }else if(type.equals("REG")){
-                    String word = "ace";
+                    String word = "a";
                     tool.fromRegExpToNFA();
                     tool.convertNFAtoDFA();
                     tool.getNFA().printAutomataAST();

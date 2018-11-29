@@ -29,8 +29,6 @@ public class Project {
 
             try{
                 LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString(), debug);
-                tool.fromRegExpToNFA();
-                tool.convertNFAtoDFA();
                 System.out.println(" --- Pattern ---");
 
 
@@ -57,20 +55,19 @@ public class Project {
                 //running compiler on pattern
 
                 if(type.equals("DFA")){
-                    String word = "ab";
+                    String word = "a";
                     System.out.print("Running on word "+word+" : ");
                     tool.getDFA().execute(word);
                     tool.convertDFAtoNFA();
                     tool.getNFA().printAutomataAST();
                 }else if(type.equals("NFA")){
-                    String word = "abcbca";
+                    String word = "01";
                     tool.convertNFAtoDFA();
                     tool.getDFA().printAutomataAST();
                     System.out.print("Running on word "+word+" : ");
                     tool.getDFA().execute(word);
-
                 }else if(type.equals("REG")){
-                    String word = "a";
+                    String word = "de";
                     tool.fromRegExpToNFA();
                     tool.convertNFAtoDFA();
                     tool.getNFA().printAutomataAST();

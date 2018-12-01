@@ -103,6 +103,11 @@ public class AutomataAST {
     }
 
     public RegularExpression convertToRegExp(){
-        return null; 
+        // writing function that convert NFA to GNFA
+        // then convert this GNFA to regExp
+
+
+
+        return null;
     }
 }

@@ -13,14 +13,14 @@ public class Project {
         AutomataAST NFA;
         RegularExpression REGEXP;
 
-//        String type = "DFA";
-//        File file = new File(baseDirectory, "DFA.txt");
+        String type = "DFA";
+        File file = new File(baseDirectory, "DFA.txt");
 
 //        String type = "NFA";
 //        File file = new File(baseDirectory, "NFA_3.txt");
 
-        String type = "REG";
-        File file = new File(baseDirectory, "REG_4.txt");
+//        String type = "REG";
+//        File file = new File(baseDirectory, "REG_4.txt");
 
         if(file.exists()){
             System.out.println();
@@ -55,11 +55,12 @@ public class Project {
                 //running compiler on pattern
 
                 if(type.equals("DFA")){
-                    String word = "a";
-                    System.out.print("Running on word "+word+" : ");
-                    tool.getDFA().execute(word);
+//                    String word = "a";
+//                    System.out.print("Running on word "+word+" : ");
+//                    tool.getDFA().execute(word);
                     tool.convertDFAtoNFA();
                     tool.getNFA().printAutomataAST();
+                    tool.convertDFAtoRegExp();
                 }else if(type.equals("NFA")){
                     String word = "01";
                     tool.convertNFAtoDFA();

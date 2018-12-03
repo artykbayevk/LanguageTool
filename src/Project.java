@@ -13,14 +13,14 @@ public class Project {
         AutomataAST NFA;
         RegularExpression REGEXP;
 
-//        String type = "DFA";
-//        File file = new File(baseDirectory, "DFA.txt");
+        String type = "DFA";
+        File file = new File(baseDirectory, "DFA_1.txt");
 
 //        String type = "NFA";
-//        File file = new File(baseDirectory, "NFA_3.txt");
+//        File file = new File(baseDirectory, "NFA_2.txt");
 
-        String type = "REG";
-        File file = new File(baseDirectory, "REG_2.txt");
+//        String type = "REG";
+//        File file = new File(baseDirectory, "REG_2.txt");
 
         if(file.exists()){
             System.out.println();
@@ -55,20 +55,28 @@ public class Project {
                 //running compiler on pattern
 
                 if(type.equals("DFA")){
+                    tool.convertDFAtoRegExp();
+
 //                    String word = "a";
 //                    System.out.print("Running on word "+word+" : ");
 //                    tool.getDFA().execute(word);
-                    tool.convertDFAtoNFA();
-                    tool.getNFA().printAutomataAST();
-                    tool.convertDFAtoRegExp();
+//                    tool.convertDFAtoNFA();
+//                    tool.getNFA().printAutomataAST();
+
                 }else if(type.equals("NFA")){
-                    String word = "01";
-                    tool.convertNFAtoDFA();
-                    tool.getDFA().printAutomataAST();
-                    System.out.print("Running on word "+word+" : ");
-                    tool.getDFA().execute(word);
+                    tool.convertNFAtoRegExp();
+
+
+//                    String word = "1010";
+//                    tool.convertNFAtoDFA();
+//                    tool.getDFA().printAutomataAST();
+//                    System.out.print("Running on word "+word+" : ");
+//                    tool.getDFA().execute(word);
                 }else if(type.equals("REG")){
-                    String word = "de";
+
+
+
+                    String word = "aaaadddddcccdddc";
                     tool.fromRegExpToNFA();
                     tool.convertNFAtoDFA();
                     tool.getNFA().printAutomataAST();

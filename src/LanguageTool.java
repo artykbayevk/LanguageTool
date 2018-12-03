@@ -163,7 +163,7 @@ public class LanguageTool {
         }
 
         //Creating main DFA table
-        String start_state = String.join(",",e_closure_map.get(this.NFA.getStart()));
+        String start_state = String.join("_",e_closure_map.get(this.NFA.getStart()));
         System.out.println();
         System.out.println("Converting derivatives in process: ");
         System.out.println("Epsilon-closures: " + e_closure_map);
@@ -198,13 +198,13 @@ public class LanguageTool {
                     pair.getValue().put(input_char, trapState);
                 } else {
                     Set<String> converted = new HashSet<>();
-                    converted.add(String.join(",", pair.getValue().get(input_char)));
+                    converted.add(String.join("_", pair.getValue().get(input_char)));
                     pair.getValue().put(input_char, converted);
 
                 }
             }
 
-            String tmp[] = pair.getKey().split(",");
+            String tmp[] = pair.getKey().split("_");
 
             for (int i = 0; i < tmp.length; i++) {
                 for (String original_final : this.NFA.getFinal_states()) {
@@ -237,9 +237,13 @@ public class LanguageTool {
         this.REGEXP = this.NFA.convertToRegExp();
     }
 
+    void convertNFAtoRegExp() throws Exception{
+        this.REGEXP = this.NFA.convertToRegExp();
+    }
+
     //function for doing e-NFA transitions to DFA-transition
     private Map<String, Map< Character , Set<String>>> to_DFA_transitions(String start_state, Map<String, Map< Character , Set<String>>> dfa_transitions){
-        String input_states[] = start_state.split(",");
+        String input_states[] = start_state.split("_");
 
         Map<Character, Set<String>> main_transition = new HashMap<>();
 
@@ -273,7 +277,7 @@ public class LanguageTool {
 
 
         for (Map.Entry<Character, Set<String>> pair_of_new_state:main_transition.entrySet()) {
-            String new_state = String.join(",",pair_of_new_state.getValue());
+            String new_state = String.join("_",pair_of_new_state.getValue());
             if(!dfa_transitions.containsKey(new_state)){
                 dfa_transitions.putAll(to_DFA_transitions(new_state, dfa_transitions));
             }else{

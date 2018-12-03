@@ -13,14 +13,14 @@ public class Project {
         AutomataAST NFA;
         RegularExpression REGEXP;
 
-        String type = "DFA";
-        File file = new File(baseDirectory, "DFA.txt");
+//        String type = "DFA";
+//        File file = new File(baseDirectory, "DFA.txt");
 
 //        String type = "NFA";
 //        File file = new File(baseDirectory, "NFA_3.txt");
 
-//        String type = "REG";
-//        File file = new File(baseDirectory, "REG_4.txt");
+        String type = "REG";
+        File file = new File(baseDirectory, "REG_2.txt");
 
         if(file.exists()){
             System.out.println();

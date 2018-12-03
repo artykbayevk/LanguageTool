@@ -14,7 +14,7 @@ public class Project {
         RegularExpression REGEXP;
 
         String type = "DFA";
-        File file = new File(baseDirectory, "DFA_1.txt");
+        File file = new File(baseDirectory, "DFA_2.txt");
 
 //        String type = "NFA";
 //        File file = new File(baseDirectory, "NFA_2.txt");

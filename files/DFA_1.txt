@@ -1,7 +1,11 @@
-q1,a>q1;
+q1,a>q2;
 q1,b>q2;
-q2,a>q2;
+q1,c>q2;
+q1,d>q1;
+q2,a>q1;
 q2,b>q2;
+q2,c>q2;
+q2,d>q1;
 -
 begin = q1;
 final = q2;

@@ -1,6 +1,9 @@
 package AST;
 
+import parsing.RegExpParser;
+
 import java.lang.reflect.Array;
+import java.net.Inet4Address;
 import java.util.*;
 
 public class AutomataAST {
@@ -128,8 +131,11 @@ public class AutomataAST {
             Map<String, Set<String>> out_transition = new HashMap<>();
             for (Map.Entry<Character, Set<String>> intro_pair:pair.getValue().entrySet()) {
                 out_transition.put(intro_pair.getKey().toString(), intro_pair.getValue());
+                if(intro_pair.getValue().contains("qTrap")) intro_pair.getValue().remove("qTrap");
             }
             converted_transitions.put(pair.getKey(), out_transition);
+
+
         }
 
         //add new transitions
@@ -166,18 +172,144 @@ public class AutomataAST {
         //HERE WE HAVE NEW STATES THAT CONNECTED WITH EMPTY TRANSITION
 
 
+
+
+        // delete all qTrap states
+        if(converted_states.contains("qTrap")) converted_states.remove("qTrap");
+        if(converted_transitions.containsKey("qTrap"))converted_transitions.remove("qTrap");
+
+        //deleting all empty transitions
+        for (Map.Entry<String, Map<String, Set<String>>> pair: converted_transitions.entrySet()){
+            Map<String, Set<String>> overriding_values = new HashMap<>();
+            for (Map.Entry<String,Set<String>> entry_pair:pair.getValue().entrySet()) {
+                if(entry_pair.getValue().size() != 0) overriding_values.put(entry_pair.getKey(), entry_pair.getValue());
+            }
+
+            pair.setValue(overriding_values);
+        }
+
+
+        // combine all loops --> q1 = [a = [q1], b = [q1]] ===> q1 = [a|b = [q1]]
+        // create a union transitions between each other
+        for (Map.Entry<String, Map<String, Set<String>>> pair: converted_transitions.entrySet()) {
+            if(!pair.getKey().equals("q_conv_s") ||pair.getKey().equals("q_conv_f")){
+                pair.setValue(convertLoopTransition(pair.getKey(), pair.getValue()));
+                pair.setValue(convertUnionTransition(pair.getKey(), pair.getValue()));
+            }
+        }
+
+
+        System.out.println();
         System.out.println(converted_transitions);
-        System.out.println(converted_states);
-        System.out.println(converted_final_state);
-        System.out.println(converter_start_state);
-        System.out.println(converted_alphabet);
-
-
-
-
-
+//        System.out.println(converted_states);
+//        System.out.println(converted_final_state);
+//        System.out.println(converter_start_state);
+//        System.out.println(converted_alphabet);
 
 
         return null;
     }
+
+    Map<String,Set<String>> convertLoopTransition(String input_state, Map<String, Set<String>> output_transition){
+        Map<String, Set<String>> convertedOutputTransition = new HashMap<>();
+        String reg = "";
+
+        Set<String> remove_chars = new HashSet<>();
+
+        for (Map.Entry<String, Set<String>> pair: output_transition.entrySet()) {
+            if(pair.getValue().contains(input_state)){
+                if(reg.length() == 0){
+                    reg += pair.getKey();
+                    remove_chars.add(pair.getKey());
+                }
+                else if(reg.length() >= 1) {
+                    reg = "("+reg+"|"+pair.getKey()+")";
+                    remove_chars.add(pair.getKey());
+                }
+            }
+        }
+
+        if(reg.length() == 1) return output_transition;
+
+
+        if(reg.length() == 0) return output_transition;
+
+
+
+        for(String remove_ch: remove_chars){
+            output_transition.remove(remove_ch);
+        }
+
+        Set<String> final_state = new HashSet<>();
+        final_state.add(input_state);
+        output_transition.put(reg, final_state);
+
+
+
+        return output_transition;
+    }
+
+    Map<String,Set<String>> convertUnionTransition(String input_state, Map<String, Set<String>> output_transition){
+        Map<String, Set<String>> convertedOutputTransition = new HashMap<>();
+
+
+        Map<String, Integer> freq_of_output = new HashMap<>();
+
+        //finding all output states
+        for(Map.Entry<String, Set<String>> pair: output_transition.entrySet()){
+            List<String> tmp = new ArrayList<>(pair.getValue());
+            if(freq_of_output.containsKey(tmp.get(0))){
+                int index = freq_of_output.get(tmp.get(0));
+                index++;
+                freq_of_output.put(tmp.get(0), index);
+            }else{
+                freq_of_output.put(tmp.get(0), 1);
+            }
+        }
+        freq_of_output.remove(input_state);
+
+
+        //concantinating all this shit
+
+        Map<String, String> state_to_regexp = new HashMap<>();
+        Set<String> removing_chars = new HashSet<>();
+
+        for(Map.Entry<String, Set<String>> pair: output_transition.entrySet()){
+            List<String> value_list = new ArrayList<>(pair.getValue());
+            String value = value_list.get(0);
+            if(freq_of_output.containsKey(value)){
+                if(freq_of_output.get(value) > 1){
+                    if(state_to_regexp.containsKey(value)){
+                        String reg = state_to_regexp.get(value);
+                        removing_chars.add(pair.getKey());
+                        reg = "("+reg+"|"+pair.getKey()+")";
+                        state_to_regexp.put(value, reg);
+                    }else{
+                        state_to_regexp.put(value, pair.getKey());
+                        removing_chars.add(pair.getKey());
+                    }
+                }
+            }
+
+        }
+
+
+        for(Map.Entry<String, String> pair: state_to_regexp.entrySet()){
+            Set<String>out_set= new HashSet<>();
+            out_set.add(pair.getKey());
+            output_transition.put(pair.getValue(), out_set);
+        }
+
+        
+
+        for (String chars_:removing_chars) {
+            output_transition.remove(chars_);
+        }
+
+        return output_transition;
+
+    }
+
 }
+
+

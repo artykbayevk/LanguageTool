@@ -238,7 +238,8 @@ public class LanguageTool {
     }
 
     void convertNFAtoRegExp() throws Exception{
-        this.REGEXP = this.NFA.convertToRegExp();
+        convertNFAtoDFA();
+        this.REGEXP = this.DFA.convertToRegExp();
     }
 
     //function for doing e-NFA transitions to DFA-transition

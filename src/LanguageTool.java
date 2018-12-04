@@ -73,9 +73,6 @@ public class LanguageTool {
                     //else if regular expression parse like that
                     regExpParser = new RegExpParser(tokens);
                     this.REGEXP= regExpParser.parseRegExp();
-                    System.out.println(this.REGEXP);
-                    System.out.println(this.REGEXP.value());
-                    System.out.println("We are here");
                 }
             }
         }catch (Exception e){
@@ -85,7 +82,7 @@ public class LanguageTool {
 
 
     //setter for DFA
-    public void setDFA(AutomataAST DFA) {
+    private void setDFA(AutomataAST DFA) {
         this.DFA = DFA;
     }
 

@@ -13,14 +13,14 @@ public class Project {
         AutomataAST NFA;
         RegularExpression REGEXP;
 
-        String type = "DFA";
-        File file = new File(baseDirectory, "DFA_2.txt");
+//        String type = "DFA";
+//        File file = new File(baseDirectory, "DFA_2.txt");
 
 //        String type = "NFA";
 //        File file = new File(baseDirectory, "NFA_2.txt");
 
-//        String type = "REG";
-//        File file = new File(baseDirectory, "REG_2.txt");
+        String type = "REG";
+        File file = new File(baseDirectory, "REG_2.txt");
 
         if(file.exists()){
             System.out.println();
@@ -54,35 +54,87 @@ public class Project {
                 System.out.println("--- Compiling and Converting Patterns ---");
                 //running compiler on pattern
 
-                if(type.equals("DFA")){
-                    tool.convertDFAtoRegExp();
 
-//                    String word = "a";
-//                    System.out.print("Running on word "+word+" : ");
-//                    tool.getDFA().execute(word);
-//                    tool.convertDFAtoNFA();
-//                    tool.getNFA().printAutomataAST();
+                // TODO: 12/4/18 WRITE TEST INPUT FILES AND CHECK ALL OF THEM 
+
+                // TODO: 12/4/18 ALL INPUT FILES WILL BE ALSO EASY - COMPLICATED 
+                
+                
+                if(type.equals("DFA")){
+
+
+                    //RUNNING WORD ON DFA
+                    String word = "a";
+                    System.out.print("Running DFA on word "+ word+ ", result: ");
+                    tool.executeDFA(word);
+
+
+                    //CONVERT DFA TO NFA and PRINT THIS NFA
+                    tool.convertDFAtoNFA();
+                    System.out.println("--- CONVERTED NFA ---");
+                    tool.getNFA().printAutomataAST();
+
+
+
+                    //CONVERT DFA TO REGULAR EXPRESSION - NOT FINISHED
+                    System.out.println("--- CONVERTING DFA TO REGEXP ---");
+                    tool.convertDFAtoRegExp(); // THIS PART NOT FINISHED, SHOW JUST GNFA
+                    tool.getREGEXP().printElements();
+
+
+
 
                 }else if(type.equals("NFA")){
-                    tool.convertNFAtoRegExp();
 
 
-//                    String word = "1010";
-//                    tool.convertNFAtoDFA();
-//                    tool.getDFA().printAutomataAST();
-//                    System.out.print("Running on word "+word+" : ");
-//                    tool.getDFA().execute(word);
+
+                    //CONVERT NFA TO DFA and PRINT THIS DFA
+                    System.out.println("--- CONVERTED DFA ---");
+                    tool.convertNFAtoDFA();
+                    tool.getDFA().printAutomataAST();
+
+
+
+                    //RUN WORD ON DFA, THAT CONVERTED FROM NFA
+                     String word = "1010";
+                     System.out.print("Running DFA on word "+ word+ ", result: ");
+                     tool.executeDFA(word);
+
+
+                    //CONVERT DFA TO REGULAR EXPRESSION - NOT FINISHED
+                    System.out.println("--- CONVERTING NFA TO REGEXP ---");
+                    tool.convertNFAtoRegExp(); // THIS PART NOT FINISHED, SHOW JUST GNFA
+                    tool.getREGEXP().printElements();
+
+
+
+
                 }else if(type.equals("REG")){
 
 
 
-                    String word = "aaaadddddcccdddc";
+                    //CONVERTING REGEXP TO NFA AND PRINT THIS NFA
+                    System.out.println("--- CONVERTED NFA ---");
                     tool.fromRegExpToNFA();
-                    tool.convertNFAtoDFA();
                     tool.getNFA().printAutomataAST();
+
+
+
+                    //CONVERTING NFA TO DFA
+                    System.out.println("--- CONVERTED DFA ---");
+                    tool.convertNFAtoDFA();
                     tool.getDFA().printAutomataAST();
-                    System.out.print("Running on word "+word+" : ");
-                    tool.getDFA().execute(word);
+
+
+
+                    //RUNNING WORD ON DFA
+                    String word = "aaaadddddcccdddc";
+                    System.out.print("Running DFA on word "+ word+ ", result: ");
+                    tool.executeDFA(word);
+
+
+
+
                 }else{
                     System.out.println("Nothing");
                 }

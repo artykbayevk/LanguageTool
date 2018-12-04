@@ -1,5 +1,6 @@
 package AST;
 
+import AST.RegularExpressions.EmptyRegularExpression;
 import parsing.RegExpParser;
 
 import java.lang.reflect.Array;
@@ -106,10 +107,6 @@ public class AutomataAST {
         // writing function that convert NFA to GNFA
         // then convert this GNFA to regExp
 
-        System.out.println("Current NFA/DFA");
-        this.printAutomataAST();
-
-
         // creating all need variables
         String converter_start_state = "q_conv_s";
         String converted_final_state = "q_conv_f";
@@ -200,14 +197,23 @@ public class AutomataAST {
 
 
         System.out.println();
-        System.out.println(converted_transitions);
-//        System.out.println(converted_states);
-//        System.out.println(converted_final_state);
-//        System.out.println(converter_start_state);
-//        System.out.println(converted_alphabet);
+
+        for (Map.Entry<String, Map<String, Set<String>>> pair: converted_transitions.entrySet()) {
+            System.out.print("State: "+pair.getKey() + " on input : ");
+            for (Map.Entry<String, Set<String>> entry_pair:pair.getValue().entrySet()) {
+                System.out.print("CHAR="+ entry_pair.getKey() + " OUTPUT=" + entry_pair.getValue() + " ; ");
+            }
+            System.out.println();
+        }
 
 
-        return null;
+        System.out.println();
+        System.out.println("There our transition map changed by adding new START STATE: q_conv_s and new FINAL STATE: q_conv_f");
+        System.out.println("All loops and unions show in above transitions");
+
+
+
+        return new EmptyRegularExpression();
     }
 
     Map<String,Set<String>> convertLoopTransition(String input_state, Map<String, Set<String>> output_transition){

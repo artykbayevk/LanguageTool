@@ -1,5 +1,3 @@
-import AST.AutomataAST;
-import AST.RegularExpression;
 import util.Config;
 import java.io.File;
 
@@ -9,18 +7,35 @@ public class Project {
         File baseDirectory  = new File(config.abs_path);
         boolean debug = true;
 
-        AutomataAST DFA;
-        AutomataAST NFA;
-        RegularExpression REGEXP;
+//        UNCOMMENT TYPE AND PATH FOR FILE FOR RUNNING ALL PROCESSES
+
 
 //        String type = "DFA";
-//        File file = new File(baseDirectory, "DFA_2.txt");
+//        File file = new File(baseDirectory, "DFA_TEST_1.txt");
+//        File file = new File(baseDirectory, "DFA_TEST_2.txt");
+//        File file = new File(baseDirectory, "DFA_TEST_3.txt");
+
+
 
 //        String type = "NFA";
-//        File file = new File(baseDirectory, "NFA_2.txt");
+//        File file = new File(baseDirectory, "NFA_TEST_1.txt");
+//        File file = new File(baseDirectory, "NFA_TEST_2.txt");
+//        File file = new File(baseDirectory, "NFA_TEST_3.txt");
+//        File file = new File(baseDirectory, "NFA_TEST_4.txt");
+
+
+
+
 
         String type = "REG";
-        File file = new File(baseDirectory, "REG_2.txt");
+        File file = new File(baseDirectory, "REG_TEST_1.txt");
+//        File file = new File(baseDirectory, "REG_TEST_2.txt");
+//        File file = new File(baseDirectory, "REG_TEST_3.txt");
+//        File file = new File(baseDirectory, "REG_TEST_4.txt");
+//        File file = new File(baseDirectory, "REG_TEST_5.txt");
+//        File file = new File(baseDirectory, "REG_TEST_6.txt");
+//        File file = new File(baseDirectory, "REG_TEST_7.txt");
+//        File file = new File(baseDirectory, "REG_TEST_8.txt");
 
         if(file.exists()){
             System.out.println();
@@ -28,7 +43,7 @@ public class Project {
             System.out.println("--- Lexing and Parsing process ---\n");
 
             try{
-                LanguageTool tool = new LanguageTool(file.toString(), type, baseDirectory.toString(), debug);
+                LanguageTool tool = new LanguageTool(file.toString(), type,debug);
                 System.out.println(" --- Pattern ---");
 
 
@@ -53,11 +68,6 @@ public class Project {
 
                 System.out.println("--- Compiling and Converting Patterns ---");
                 //running compiler on pattern
-
-
-                // TODO: 12/4/18 WRITE TEST INPUT FILES AND CHECK ALL OF THEM 
-
-                // TODO: 12/4/18 ALL INPUT FILES WILL BE ALSO EASY - COMPLICATED 
                 
                 
                 if(type.equals("DFA")){
@@ -79,7 +89,7 @@ public class Project {
                     //CONVERT DFA TO REGULAR EXPRESSION - NOT FINISHED
                     System.out.println("--- CONVERTING DFA TO REGEXP ---");
                     tool.convertDFAtoRegExp(); // THIS PART NOT FINISHED, SHOW JUST GNFA
-                    tool.getREGEXP().printElements();
+//                    tool.getREGEXP().printElements();
 
 
 
@@ -96,7 +106,7 @@ public class Project {
 
 
                     //RUN WORD ON DFA, THAT CONVERTED FROM NFA
-                     String word = "1010";
+                     String word = "ab";
                      System.out.print("Running DFA on word "+ word+ ", result: ");
                      tool.executeDFA(word);
 
@@ -128,7 +138,7 @@ public class Project {
 
 
                     //RUNNING WORD ON DFA
-                    String word = "aaaadddddcccdddc";
+                    String word = "a";
                     System.out.print("Running DFA on word "+ word+ ", result: ");
                     tool.executeDFA(word);
 

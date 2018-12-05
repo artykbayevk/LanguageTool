@@ -14,7 +14,7 @@ public  class AutomataParser {
     }
 
 
-    public AutomataAST getAutomataAST(){
+    public AutomataAST getAutomataAST() throws Exception{
         Set<Character> alphabet = new HashSet<>();
         Set<String> states = new HashSet<>();
         Map<String, Map<Character, Set<String>>> transitions = new HashMap<>();
@@ -50,8 +50,7 @@ public  class AutomataParser {
 
 
                 if(line == null){
-                    System.out.println("Not validated in parsing process on line: "+tokens.get(i).pos[0]);
-                    return null;
+                    throw new Exception("Not validated in parsing process on line: "+tokens.get(i).pos[0]);
                 }else{
                     if(begin_state_validator && !final_state_validator) {
                         begin = line.get(0);
@@ -125,6 +124,8 @@ public  class AutomataParser {
         }
         return line;
     }
+
+
     private List<String> validateRules(List<String> line, boolean final_state_validator){
 
         if(line.size() < 3){
@@ -154,6 +155,13 @@ public  class AutomataParser {
                 if(line.get(i).charAt(0) == ',') line.remove(i);
             }
         }
+
+
+        for (String _char:line) {
+            if(_char.length() == 1 || _char.length() == 0) return null;
+            if(!_char.substring(0,1).equals("q")) return null;
+        }
+
         return line;
     }
 

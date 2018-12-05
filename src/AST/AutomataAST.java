@@ -198,6 +198,15 @@ public class AutomataAST {
 
         System.out.println();
 
+
+
+
+
+
+
+
+
+
         for (Map.Entry<String, Map<String, Set<String>>> pair: converted_transitions.entrySet()) {
             System.out.print("State: "+pair.getKey() + " on input : ");
             for (Map.Entry<String, Set<String>> entry_pair:pair.getValue().entrySet()) {

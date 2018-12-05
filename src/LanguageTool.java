@@ -14,7 +14,6 @@ import util.Token;
 import java.util.*;
 
 public class LanguageTool {
-    private String out_dir;
     private String type;
 
     private List<Token> tokens;
@@ -32,8 +31,7 @@ public class LanguageTool {
 
 
     //CONSTRUCTOR
-    public LanguageTool(String path, String type, String output_directory, boolean debug){
-        this.out_dir = output_directory;
+    public LanguageTool(String path, String type, boolean debug){
         this.type = type;
         this.debug = debug;
 
@@ -78,22 +76,6 @@ public class LanguageTool {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-
-    //setter for DFA
-    private void setDFA(AutomataAST DFA) {
-        this.DFA = DFA;
-    }
-
-    //setter for NFA
-    public void setNFA(AutomataAST NFA) {
-        this.NFA = NFA;
-    }
-
-    //setter for RegularExpression
-    public void setREGEXP(RegularExpression REGEXP) {
-        this.REGEXP = REGEXP;
     }
 
     //getter for DFA

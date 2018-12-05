@@ -1,0 +1,7 @@
+qA,a>qB;
+qA,b>qC;
+qB,a>qB;
+qB,b>qC;
+-
+begin=qA;
+final=qC;
